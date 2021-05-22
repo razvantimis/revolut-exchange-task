@@ -1,4 +1,4 @@
-import { CurrencyType } from '@app/store/enum';
+import { CurrencyType } from '@app/state-management/enum';
 import React, { FC } from 'react';
 import {
   ArrowDown,

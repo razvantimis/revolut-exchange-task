@@ -1,8 +1,8 @@
 ## How the app state will look?
 
-1. User Account
+1. Wallets
 
-1: { currency: 'USD' , balance: 12.09}
+USD: { currency: 'USD' , balance: 12.09}
 2: { currency: 'EUR' , balance: 21.39}
 3: { currency: 'GBP' , balance: 41.39}
 

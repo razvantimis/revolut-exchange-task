@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import { Simulate } from 'react-dom/test-utils';
 import '@testing-library/jest-dom/extend-expect';
-import { CurrencyType } from '@app/store/enum';
+import { CurrencyType } from '@app/state-management/enum';
 import ExchangeCurrencyInput, { Props } from '../ExchangeCurrencyInput';
 
 describe('<ExchangeCurrencyInput />', () => {

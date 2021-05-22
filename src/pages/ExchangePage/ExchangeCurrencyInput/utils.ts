@@ -1,4 +1,4 @@
-import { CurrencyType } from '@app/store/enum';
+import { CurrencyType } from '@app/state-management/enum';
 import { UnreachableCaseError } from 'ts-essentials';
 
 export function getCurrencySymbol(currency: CurrencyType): string {
