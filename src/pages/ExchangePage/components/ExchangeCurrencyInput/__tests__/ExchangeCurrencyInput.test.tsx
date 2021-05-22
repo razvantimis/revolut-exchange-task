@@ -48,6 +48,5 @@ describe('<ExchangeCurrencyInput />', () => {
     const balanceEl = component.getByTestId('balance');
 
     expect(balanceEl.textContent).toBe('Balance: $12.34');
-
   });
 });

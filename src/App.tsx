@@ -1,4 +1,3 @@
-import './App.css';
 import ExchangePage from './pages/ExchangePage';
 
 function App() {

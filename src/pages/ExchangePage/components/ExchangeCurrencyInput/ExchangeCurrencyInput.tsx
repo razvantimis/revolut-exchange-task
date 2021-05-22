@@ -12,6 +12,7 @@ import {
 import { getCurrencySymbol } from './utils';
 
 export type Props = {
+  className?: string;
   currency: CurrencyType,
   balance: number;
   onOpenCurrenyList: () => void;
@@ -19,9 +20,10 @@ export type Props = {
 const ExchangeCurrencyInput: FC<Props> = ({
   currency,
   balance,
+  className,
   onOpenCurrenyList,
 }) => (
-  <Container>
+  <Container className={className}>
     <LeftPart>
       <CurrencyContainer>
         <CurrencyText data-testid="currency-text">{currency.toString()}</CurrencyText>
