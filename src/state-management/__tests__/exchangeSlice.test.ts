@@ -2,10 +2,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import exchange, {
   setCurrencyFrom,
   setCurrencyTo,
+  setOpenCurrencyList,
   setValueFrom,
   setValueTo,
 } from '../exchangeSlice';
-import { CurrencyType } from '../enum';
+import { CurrencyType, OpenCurrencyListType } from '../enum';
 import getRates from '../getRates';
 
 describe('Store => exchangeSilce', () => {
@@ -33,11 +34,11 @@ describe('Store => exchangeSilce', () => {
 
   const getExchangeStore = (store: ReturnType<typeof setupStore>) => store.getState().exchange;
 
-  it('should set currencyFrom to USD', () => {
+  it('should set openCurrencyList with "From"', () => {
     const store = setupStore();
-    store.dispatch(setCurrencyFrom(CurrencyType.USD));
+    store.dispatch(setOpenCurrencyList(OpenCurrencyListType.From));
 
-    expect(getExchangeStore(store).currencyFrom).toBe(CurrencyType.USD);
+    expect(getExchangeStore(store).openCurrencyList).toBe(OpenCurrencyListType.From);
   });
 
   it('should set currencyTo to EUR', () => {
@@ -45,6 +46,13 @@ describe('Store => exchangeSilce', () => {
     store.dispatch(setCurrencyTo(CurrencyType.EUR));
 
     expect(getExchangeStore(store).currencyTo).toBe(CurrencyType.EUR);
+  });
+
+  it('should set currencyFrom to USD', () => {
+    const store = setupStore();
+    store.dispatch(setCurrencyFrom(CurrencyType.USD));
+
+    expect(getExchangeStore(store).currencyFrom).toBe(CurrencyType.USD);
   });
 
   it('should valueTo be 12.05 * rate(EURUSD) if user set valueFrom', () => {

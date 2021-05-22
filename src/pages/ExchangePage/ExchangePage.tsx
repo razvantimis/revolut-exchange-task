@@ -35,10 +35,10 @@ const ExchangePage: FC = () => {
 
   const handleSelectCurrency = (selectedCurrency: CurrencyType) => {
     switch (openCurrencyList) {
-      case OpenCurrencyListType.from:
+      case OpenCurrencyListType.From:
         dispatch(setCurrencyFrom(selectedCurrency));
         break;
-      case OpenCurrencyListType.to:
+      case OpenCurrencyListType.To:
         dispatch(setCurrencyTo(selectedCurrency));
         break;
       default:
@@ -71,7 +71,7 @@ const ExchangePage: FC = () => {
         className="exhange-currency-input"
         currency={currencyFrom}
         balance={wallets[currencyFrom]}
-        onOpenCurrenyList={() => dispatch(setOpenCurrencyList(OpenCurrencyListType.from))}
+        onOpenCurrenyList={() => dispatch(setOpenCurrencyList(OpenCurrencyListType.From))}
       >
         <NumberInput
           value={valueFrom}
@@ -82,7 +82,7 @@ const ExchangePage: FC = () => {
         className="exhange-currency-input"
         currency={currencyTo}
         balance={wallets[currencyTo]}
-        onOpenCurrenyList={() => dispatch(setOpenCurrencyList(OpenCurrencyListType.to))}
+        onOpenCurrenyList={() => dispatch(setOpenCurrencyList(OpenCurrencyListType.To))}
       >
         <NumberInput
           value={valueTo}

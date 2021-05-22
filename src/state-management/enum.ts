@@ -5,8 +5,8 @@ export enum CurrencyType {
 }
 
 export enum OpenCurrencyListType {
-  from,
-  to,
+  From,
+  To,
 }
 
 export enum ExchangeType {
