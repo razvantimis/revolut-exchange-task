@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   display: flex;
@@ -7,7 +7,7 @@ export const Container = styled.div`
   padding: 15px;
 `;
 
-// #region ------ Left -------
+// #region ------ Left Part -------
 export const LeftPart = styled.div`
  flex: 1;
 `;
@@ -18,11 +18,16 @@ export const CurrencyContainer = styled.div`
   align-items: center;
 `;
 
-export const CurrencyText = styled.span`
-  margin-right: 15px;
+export const CurrencyFontStyle = css`
   color: var(--color-black);
   font-size: 1.5rem;
   font-weight: bold;
+`;
+
+export const CurrencyText = styled.span`
+  ${CurrencyFontStyle}
+  margin-right: 15px;
+ 
 `;
 export const ArrowDown = styled.span`
   border: solid var(--color-black);
@@ -47,5 +52,9 @@ export const BalanceText = styled.div`
 
 // #region ----- Right Part -----
 export const RightPart = styled.div`
- flex: 1;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
 `;
+
+// #endregion

@@ -9,7 +9,9 @@ describe('<ExchangeCurrencyInput />', () => {
     const mockProps: Props = {
       currency: CurrencyType.EUR,
       balance: 12,
+      inputValue: 10,
       onOpenCurrenyList: jest.fn(),
+      onInputChange: jest.fn(),
     };
     return {
       ...mockProps,

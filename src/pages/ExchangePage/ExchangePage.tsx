@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { CurrencyType } from '@app/store/enum';
-import ExchangeCurrencyInput from './components/ExchangeCurrencyInput';
+import ExchangeCurrencyInput from './ExchangeCurrencyInput';
 import {
   ExchangeTitle,
   ExchangeSubTitle,
@@ -25,6 +25,8 @@ const ExchangePage: FC<Props> = () => (
       onOpenCurrenyList={() => {
         // TODO open list to change the current currency
       }}
+      inputValue={10.34}
+      onInputChange={() => { }}
     />
     <ExchangeCurrencyInput
       className="exhange-currency-input"
@@ -33,6 +35,8 @@ const ExchangePage: FC<Props> = () => (
       onOpenCurrenyList={() => {
         // TODO open list to change the current currency
       }}
+      inputValue={10.34}
+      onInputChange={() => { }}
     />
 
   </ExchangeContainer>

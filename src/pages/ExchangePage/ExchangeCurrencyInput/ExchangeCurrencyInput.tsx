@@ -1,5 +1,5 @@
 import { CurrencyType } from '@app/store/enum';
-import { FC } from 'react';
+import React, { FC } from 'react';
 import {
   ArrowDown,
   Container,
@@ -9,18 +9,23 @@ import {
   RightPart,
   BalanceText,
 } from './ExchangeCurrencyInput.style';
+import NumberInput from './NumberInput';
 import { getCurrencySymbol } from './utils';
 
 export type Props = {
   className?: string;
   currency: CurrencyType,
   balance: number;
+  inputValue: number;
+  onInputChange: (value: number) => void;
   onOpenCurrenyList: () => void;
 };
 const ExchangeCurrencyInput: FC<Props> = ({
   currency,
   balance,
   className,
+  inputValue,
+  onInputChange,
   onOpenCurrenyList,
 }) => (
   <Container className={className}>
@@ -36,7 +41,12 @@ const ExchangeCurrencyInput: FC<Props> = ({
         {balance}
       </BalanceText>
     </LeftPart>
-    <RightPart />
+    <RightPart>
+      <NumberInput
+        value={inputValue}
+        onChange={onInputChange}
+      />
+    </RightPart>
   </Container>
 );
 
