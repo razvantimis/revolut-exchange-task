@@ -1,46 +1,44 @@
-# Getting Started with Create React App
+# Revolut Task
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Description
 
-In the project directory, you can run:
+1. Open the current Revolut app, on either iOS or Android, and navigate to the exchange screen.
+2. If the app is not available in your country, you can observe how the application works in this video: https://youtu.be/c0zPSiKYipc?t=29s. (Exchange screen is at the 29th second of the video). 
+P.S. It is not required to implement the rates screen (1:05 in the video).
+3. Implement the functionality of this screen only in your own custom web widget, using FX rates from any of these sources:
+    1. http://www.ecb.int/stats/exchange/eurofxref/html/index.en.html#dev
+    2. https://openexchangerates.org/
+    3. your preferred source of FX rates.
 
-### `yarn start`
+## Business requirements
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+1. Refresh the rate every 10s (we do not expect the rate to change every 10s as most free rate sources won't provide live rates).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+2. Contain at least three currency accounts with USD, EUR, GBP
 
-### `yarn test`
+3. Make it possible to make an exchange between accounts.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+4. Contain two inputs on the exchange screen for both accounts. Each input should be validated to let the user type only numbers with two digits after the dot.
 
-### `yarn build`
+5. Give all the necessary information: exchange rate between active accounts and account balances.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech requirements
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. The app is written in React.
+2. Typed JavaScript (we love TypeScript).
+3. Test your application with Jest.
+4. Use any libraries that you think are a reasonable choice for this task.
+5. Don't hesitate to use the latest technologies and design patterns. Only the latest modern browsers (Chrome/Safari) are your limitation.
+6. Please make sure your package.json contains:
+    1. "start" script -- should launch the app on localhost.
+    2. "test" script -- should run tests in your app.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Implicit requirements
 
-### `yarn eject`
+1. The widget must work and produce correct results.
+2. Test your app before writing to us that it is ready.
+3. The code produced is expected to be of a high standard.
+4. You can implement the widget with any design you want, but you should make it look nice.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
