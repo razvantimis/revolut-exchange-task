@@ -27,7 +27,7 @@ const initialState: ExchangeState = {
   openCurrencyList: null,
   exchangeType: ExchangeType.Buy,
   rateEuro,
-  rates: getRates(rateEuro)
+  rates: getRates(rateEuro),
 };
 
 const exchangeSlice = createSlice({

@@ -22,7 +22,7 @@ describe('Store => exchangeSilce', () => {
         exchange: {
           rateEuro,
           rates,
-        }
+        },
       },
       reducer: {
         exchange,
