@@ -4,13 +4,26 @@ import exchange, {
   setCurrencyTo,
   setValueFrom,
   setValueTo,
-  switchCurrency,
 } from '../exchangeSlice';
 import { CurrencyType } from '../enum';
+import getRates from '../getRates';
 
 describe('Store => exchangeSilce', () => {
+  const rateEuro = {
+    [CurrencyType.EUR]: 1,
+    [CurrencyType.USD]: 1.2188,
+    [CurrencyType.GPB]: 0.85870,
+  };
+  const rates = getRates(rateEuro);
+
   const setupStore = () => {
     const store = configureStore({
+      preloadedState: {
+        exchange: {
+          rateEuro,
+          rates,
+        }
+      },
       reducer: {
         exchange,
       },
@@ -34,29 +47,48 @@ describe('Store => exchangeSilce', () => {
     expect(getExchangeStore(store).currencyTo).toBe(CurrencyType.EUR);
   });
 
-  it('should switch currency', () => {
+  it('should valueTo be 12.05 * rate(EURUSD) if user set valueFrom', () => {
     const store = setupStore();
-    store.dispatch(setCurrencyTo(CurrencyType.EUR));
-    store.dispatch(setCurrencyFrom(CurrencyType.GPB));
-    store.dispatch(switchCurrency());
+    store.dispatch(setCurrencyFrom(CurrencyType.EUR));
+    store.dispatch(setCurrencyTo(CurrencyType.USD));
 
-    expect(getExchangeStore(store).currencyTo).toBe(CurrencyType.GPB);
-    expect(getExchangeStore(store).currencyFrom).toBe(CurrencyType.EUR);
+    const nextValueFrom = '12.05';
+    store.dispatch(setValueFrom(nextValueFrom));
+
+    const rate = rates[CurrencyType.EUR][CurrencyType.USD];
+    const expectedValueTo = parseFloat(nextValueFrom) * rate;
+
+    expect(getExchangeStore(store).valueTo).toBe(expectedValueTo.toFixed(2));
+    expect(getExchangeStore(store).valueFrom).toBe(nextValueFrom);
   });
 
-  it('should set valueTo  = 12.05', () => {
+  it('should valueFrom be 6.10 * rate(USDEUR) if user set valueTo', () => {
     const store = setupStore();
-    const nextValue = '12.05';
-    store.dispatch(setValueTo(nextValue));
+    store.dispatch(setCurrencyFrom(CurrencyType.EUR));
+    store.dispatch(setCurrencyTo(CurrencyType.USD));
 
-    expect(getExchangeStore(store).valueTo).toBe(nextValue);
+    const nextValueTo = '6.10';
+    store.dispatch(setValueTo(nextValueTo));
+
+    const rate = rates[CurrencyType.USD][CurrencyType.EUR];
+    const expectedValueFrom = parseFloat(nextValueTo) * rate;
+
+    expect(getExchangeStore(store).valueTo).toBe(nextValueTo);
+    expect(getExchangeStore(store).valueFrom).toBe(expectedValueFrom.toFixed(2));
   });
 
-  it('should set valueFrom  = 156.05', () => {
+  it('should valueFrom be 6.10 * rate(GBPEUR) if user set valueTo', () => {
     const store = setupStore();
-    const nextValue = '156.05';
-    store.dispatch(setValueFrom(nextValue));
+    store.dispatch(setCurrencyFrom(CurrencyType.EUR));
+    store.dispatch(setCurrencyTo(CurrencyType.GPB));
 
-    expect(getExchangeStore(store).valueFrom).toBe(nextValue);
+    const nextValueTo = '6.10';
+    store.dispatch(setValueTo(nextValueTo));
+
+    const rate = rates[CurrencyType.GPB][CurrencyType.EUR];
+    const expectedValueFrom = parseFloat(nextValueTo) * rate;
+
+    expect(getExchangeStore(store).valueTo).toBe(nextValueTo);
+    expect(getExchangeStore(store).valueFrom).toBe(expectedValueFrom.toFixed(2));
   });
 });
