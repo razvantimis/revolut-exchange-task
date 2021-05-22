@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import { Simulate } from 'react-dom/test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import { CurrencyType } from '@app/store/enum';
-import ExchangeCurrencyInput, { Props } from './ExchangeCurrencyInput';
+import ExchangeCurrencyInput, { Props } from '../ExchangeCurrencyInput';
 
 describe('<ExchangeCurrencyInput />', () => {
   const getProps = (newProps?: Partial<Props>) => {
@@ -27,6 +27,16 @@ describe('<ExchangeCurrencyInput />', () => {
     expect(currencyEl.textContent).toBe('USD');
   });
 
+  it('should call onSwitchCurrency when user click on arrow', () => {
+    const props = getProps();
+
+    const component = render(<ExchangeCurrencyInput {...props} />);
+    const arrowEl = component.getByTestId('arrow');
+    Simulate.click(arrowEl);
+
+    expect(props.onOpenCurrenyList).toBeCalled();
+  });
+
   it('should render balance text correctly', () => {
     const balance = 12.34;
     const props = getProps({
@@ -38,15 +48,6 @@ describe('<ExchangeCurrencyInput />', () => {
     const balanceEl = component.getByTestId('balance');
 
     expect(balanceEl.textContent).toBe('Balance: $12.34');
-  });
 
-  it('should call onSwitchCurrency when user click on arrow', () => {
-    const props = getProps();
-
-    const component = render(<ExchangeCurrencyInput {...props} />);
-    const arrowEl = component.getByTestId('arrow');
-    Simulate.click(arrowEl);
-
-    expect(props.onOpenCurrenyList).toBeCalled();
   });
 });

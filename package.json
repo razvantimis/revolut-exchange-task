@@ -12,8 +12,14 @@
     "eject": "react-scripts eject"
   },
   "jest": {
+    "preset": "ts-jest",
     "moduleNameMapper": {
       "^@app/(.*)$": "<rootDir>/src/$1"
+    },
+    "globals": {
+      "ts-jest": {
+        "tsConfig": "tsconfig.json"
+      }
     }
   },
   "browserslist": {
