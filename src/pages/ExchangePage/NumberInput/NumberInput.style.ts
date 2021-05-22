@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CurrencyFontStyle } from '../ExchangeCurrencyInput.style';
+import { CurrencyFontStyle } from '../ExchangeCurrencyInfo/ExchangeCurrencyInfo.style';
 
 export const Input = styled.input`
   ${CurrencyFontStyle}

@@ -3,21 +3,22 @@ import { Input } from './NumberInput.style';
 import NUMBER_INPUT_PATTERN from './pattern';
 
 export type Props = {
-  value: number;
-  onChange: (value: number) => void;
+  value: string;
+  onChange: (value: string) => void;
 };
 const NumberInput: FC<Props> = ({ value, onChange }) => {
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value: nextValue } = event.currentTarget;
     const match = nextValue.match(NUMBER_INPUT_PATTERN);
     if (match) {
-      onChange(parseFloat(nextValue));
+      onChange(nextValue);
     }
   };
 
   return (
     <Input
       data-testid="input"
+      type="text"
       value={value}
       onChange={handleInputChange}
     />
