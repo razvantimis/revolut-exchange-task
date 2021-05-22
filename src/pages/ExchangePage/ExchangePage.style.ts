@@ -10,9 +10,12 @@ export const ExchangeContainer = styled.div`
   position: relative;
 
   .exhange-currency-input {
-    margin-top: 15px;
+    margin-top: 20px;
   }
 
+  .exchange-btn {
+    margin-top: 25px;
+  }
 `;
 
 export const Overlay = styled.div`
@@ -39,3 +42,13 @@ export const ExchangeSubTitle = styled.h2`
 `;
 
 // #endregion
+
+export const ExchangeButton = styled.button`
+  border: none;
+  border-radius: 15px;
+  background-color: var(--color-btn);
+  padding: 10px;
+  font-size: 1.4rem;
+  color: white;
+  font-weight: bold;
+`;

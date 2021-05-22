@@ -16,6 +16,7 @@ import {
   ExchangeContainer,
   ExchangeHeader,
   Overlay,
+  ExchangeButton,
 } from './ExchangePage.style';
 import NumberInput from './NumberInput';
 import CurrencyList from './CurrencyList';
@@ -81,9 +82,8 @@ const ExchangePage: FC = () => {
           value={valueTo}
           onChange={(value) => dispatch(setValueTo(value))}
         />
-
       </ExchangeCurrencyInfo>
-
+      <ExchangeButton className="exchange-btn">Sell RON for USD</ExchangeButton>
     </ExchangeContainer>
   );
 };
