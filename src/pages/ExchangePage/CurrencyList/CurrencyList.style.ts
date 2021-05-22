@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CurrencyFontStyle } from '../ExchangePage/ExchangeCurrencyInfo/ExchangeCurrencyInfo.style';
+import { CurrencyFontStyle } from '../ExchangeCurrencyInfo/ExchangeCurrencyInfo.style';
 
 export const CurrencyListContainer = styled.div`
   display: flex;

@@ -1,6 +1,6 @@
 import { CurrencyType } from '@app/state-management/enum';
 import { useSelector } from 'react-redux';
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { RootState } from '@app/state-management/store';
 import { WalletsState } from '@app/state-management/walletsSlice';
 import getCurrencySymbol from '@app/utils/getCurrencySymbol';
@@ -9,7 +9,7 @@ import {
   CurrencyItem,
   CurrencyListContainer,
   CurrencyTitle,
-} from './CurrencyListPage.style';
+} from './CurrencyList.style';
 
 export type Props = {
   currencyList: CurrencyType[],

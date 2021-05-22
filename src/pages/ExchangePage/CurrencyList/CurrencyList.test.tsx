@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import '@testing-library/jest-dom/extend-expect';
 import { CurrencyType } from '@app/state-management/enum';
 import { mockStore } from '@app/state-management/mockStore';
-import CurrencyListPage, { Props } from './CurrencyListPage';
+import CurrencyListPage, { Props } from './CurrencyList';
 
 describe('<CurrencyListPage />', () => {
   const getProps = (newProps?: Partial<Props>) => {
