@@ -7,6 +7,6 @@ test('header renders with correct text', () => {
   const headerTitleEl = component.getByTestId('header-title');
   const headerSubTitleEl = component.getByTestId('header-subtitle');
 
-  expect(headerTitleEl.textContent).toBe("Sell RON")
-  expect(headerSubTitleEl.textContent).toBe("lei 1 = 0.454$")
+  expect(headerTitleEl.textContent).toBe('Sell RON');
+  expect(headerSubTitleEl.textContent).toBe('lei 1 = 0.454$');
 });

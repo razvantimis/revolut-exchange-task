@@ -11,6 +11,11 @@
     "coverage": "jest --coverage",
     "eject": "react-scripts eject"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "^@app/(.*)$": "<rootDir>/src/$1"
+    }
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -24,6 +29,7 @@
     ]
   },
   "dependencies": {
+    "@craco/craco": "^6.1.2",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -32,7 +38,8 @@
     "react-scripts": "4.0.3",
     "styled-components": "^5.3.0",
     "ts-jest": "^26.5.6",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "ts-essentials": "^7.0.1"
   },
   "devDependencies": {
     "@types/jest": "^26.0.15",
