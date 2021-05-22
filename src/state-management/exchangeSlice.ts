@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CurrencyType, OpenCurrencyListType } from './enum';
+import { Rates } from './getRates';
 
 type ExchangeState = {
   currencyFrom: CurrencyType;
   currencyTo: CurrencyType;
   valueFrom: string;
   valueTo: string;
-  openCurrencyList: OpenCurrencyListType | null
-
+  openCurrencyList: OpenCurrencyListType | null;
+  rateEuro: Partial<Rates[CurrencyType.EUR]>
 };
 
 const initialState: ExchangeState = {
@@ -16,6 +17,9 @@ const initialState: ExchangeState = {
   valueFrom: '0',
   valueTo: '0',
   openCurrencyList: null,
+  rateEuro: {
+    [CurrencyType.EUR]: 1,
+  },
 };
 
 const exchangeSlice = createSlice({
