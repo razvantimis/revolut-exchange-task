@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { CurrencyType } from '@app/state-management/enum';
 import { useSelector } from 'react-redux';
 import { RootState } from '@app/state-management/store';
+import { WalletsState } from '@app/state-management/walletsSlice';
 import ExchangeCurrencyInput from './ExchangeCurrencyInput';
 import {
   ExchangeTitle,
@@ -13,6 +14,7 @@ import {
 const ExchangePage: FC = () => {
   const currencyFrom = useSelector<RootState, CurrencyType>((state) => state.exchange.currencyFrom);
   const currencyTo = useSelector<RootState, CurrencyType>((state) => state.exchange.currencyTo);
+  const wallets = useSelector<RootState, WalletsState>((state) => state.wallets);
 
   return (
     <ExchangeContainer>
@@ -23,7 +25,7 @@ const ExchangePage: FC = () => {
       <ExchangeCurrencyInput
         className="exhange-currency-input"
         currency={currencyFrom}
-        balance={10.34}
+        balance={wallets[currencyFrom]}
         onOpenCurrenyList={() => {
           // TODO open list to change the current currency
         }}
@@ -33,7 +35,7 @@ const ExchangePage: FC = () => {
       <ExchangeCurrencyInput
         className="exhange-currency-input"
         currency={currencyTo}
-        balance={34.45}
+        balance={wallets[currencyTo]}
         onOpenCurrenyList={() => {
           // TODO open list to change the current currency
         }}

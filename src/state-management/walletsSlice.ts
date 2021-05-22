@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { CurrencyType } from './enum';
 
-type WalletsState = {
+export type WalletsState = {
   [key in CurrencyType]: number;
 };
 
