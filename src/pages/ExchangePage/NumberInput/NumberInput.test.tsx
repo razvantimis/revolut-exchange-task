@@ -38,7 +38,7 @@ describe('<NumberInput />', () => {
 
     const nextValue = '12.45';
     fireEvent.change(inputEl, { target: { value: nextValue } });
-    expect(props.onChange).toBeCalledWith(parseFloat(nextValue));
+    expect(props.onChange).toBeCalledWith(nextValue);
   });
 
   it('should\'nt call onChange when user are typing 12.45555', () => {
