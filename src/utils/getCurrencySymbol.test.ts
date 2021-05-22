@@ -1,6 +1,6 @@
 import { CurrencyType } from '@app/state-management/enum';
 import { UnreachableCaseError } from 'ts-essentials';
-import { getCurrencySymbol } from '../utils';
+import getCurrencySymbol from './getCurrencySymbol';
 
 describe('Utils => getCurrencySymbol', () => {
   it('should return $ if currency = USD', () => {

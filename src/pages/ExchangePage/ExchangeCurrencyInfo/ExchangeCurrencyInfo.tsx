@@ -9,7 +9,7 @@ import {
   RightPart,
   BalanceText,
 } from './ExchangeCurrencyInfo.style';
-import { getCurrencySymbol } from './utils';
+import getCurrencySymbol from '@app/utils/getCurrencySymbol';
 
 export type Props = {
   className?: string;

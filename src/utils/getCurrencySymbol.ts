@@ -1,7 +1,7 @@
 import { CurrencyType } from '@app/state-management/enum';
 import { UnreachableCaseError } from 'ts-essentials';
 
-export function getCurrencySymbol(currency: CurrencyType): string {
+export default function getCurrencySymbol(currency: CurrencyType): string {
   switch (currency) {
     case CurrencyType.USD:
       return '$';

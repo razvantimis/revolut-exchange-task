@@ -2,7 +2,7 @@ import { render } from '@testing-library/react';
 import { Simulate } from 'react-dom/test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import { CurrencyType } from '@app/state-management/enum';
-import ExchangeCurrencyInfo, { Props } from '../ExchangeCurrencyInfo';
+import ExchangeCurrencyInfo, { Props } from './ExchangeCurrencyInfo';
 
 describe('<ExchangeCurrencyInfo />', () => {
   const getProps = (newProps?: Partial<Props>) => {
