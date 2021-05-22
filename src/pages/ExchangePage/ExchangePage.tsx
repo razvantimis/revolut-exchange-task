@@ -9,6 +9,7 @@ import {
   setValueFrom,
   setValueTo,
 } from '@app/state-management/exchangeSlice';
+import getExchangeButtonText from '@app/utils/getExchangeButtonText';
 import ExchangeCurrencyInfo from './ExchangeCurrencyInfo';
 import {
   ExchangeTitle,
@@ -28,6 +29,7 @@ const ExchangePage: FC = () => {
   const valueFrom = useSelector((state: RootState) => state.exchange.valueFrom);
   const valueTo = useSelector((state: RootState) => state.exchange.valueTo);
   const openCurrencyList = useSelector((state: RootState) => state.exchange.openCurrencyList);
+  const exchangeType = useSelector((state: RootState) => state.exchange.exchangeType);
 
   const dispatch = useDispatch();
 
@@ -58,7 +60,11 @@ const ExchangePage: FC = () => {
           </Overlay>
         )}
       <ExchangeHeader>
-        <ExchangeTitle data-testid="header-title">Sell RON</ExchangeTitle>
+        <ExchangeTitle data-testid="header-title">
+          {exchangeType}
+          {' '}
+          {currencyFrom}
+        </ExchangeTitle>
         <ExchangeSubTitle data-testid="header-subtitle">lei 1 = 0.454$</ExchangeSubTitle>
       </ExchangeHeader>
       <ExchangeCurrencyInfo
@@ -83,7 +89,9 @@ const ExchangePage: FC = () => {
           onChange={(value) => dispatch(setValueTo(value))}
         />
       </ExchangeCurrencyInfo>
-      <ExchangeButton className="exchange-btn">Sell RON for USD</ExchangeButton>
+      <ExchangeButton className="exchange-btn">
+        {getExchangeButtonText(currencyFrom, currencyTo, exchangeType)}
+      </ExchangeButton>
     </ExchangeContainer>
   );
 };

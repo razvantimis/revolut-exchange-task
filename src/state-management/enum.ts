@@ -8,3 +8,8 @@ export enum OpenCurrencyListType {
   from,
   to,
 }
+
+export enum ExchangeType {
+  Sell = 'Sell',
+  Buy = 'Buy',
+}
