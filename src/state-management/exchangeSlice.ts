@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CurrencyType } from './enum';
+import { CurrencyType, OpenCurrencyListType } from './enum';
 
 type ExchangeState = {
   currencyFrom: CurrencyType;
   currencyTo: CurrencyType;
   valueFrom: string;
   valueTo: string;
+  openCurrencyList: OpenCurrencyListType | null
+
 };
 
 const initialState: ExchangeState = {
@@ -13,6 +15,7 @@ const initialState: ExchangeState = {
   currencyTo: CurrencyType.USD,
   valueFrom: '0',
   valueTo: '0',
+  openCurrencyList: null,
 };
 
 const exchangeSlice = createSlice({
@@ -36,6 +39,9 @@ const exchangeSlice = createSlice({
     setValueTo(state, action: PayloadAction<string>) {
       state.valueTo = action.payload;
     },
+    setOpenCurrencyList(state, action: PayloadAction<OpenCurrencyListType | null>) {
+      state.openCurrencyList = action.payload;
+    },
   },
 });
 
@@ -45,5 +51,6 @@ export const {
   switchCurrency,
   setValueFrom,
   setValueTo,
+  setOpenCurrencyList,
 } = exchangeSlice.actions;
 export default exchangeSlice.reducer;

@@ -1,7 +1,5 @@
 import { CurrencyType } from '@app/state-management/enum';
-import { useSelector } from 'react-redux';
 import { FC } from 'react';
-import { RootState } from '@app/state-management/store';
 import { WalletsState } from '@app/state-management/walletsSlice';
 import getCurrencySymbol from '@app/utils/getCurrencySymbol';
 import {
@@ -13,30 +11,27 @@ import {
 
 export type Props = {
   currencyList: CurrencyType[],
+  wallets: WalletsState;
   onSelectCurrency: (selectedCurrency: CurrencyType) => void;
 };
 
-const CurrencyListPage: FC<Props> = ({ currencyList, onSelectCurrency }) => {
-  const wallets = useSelector<RootState, WalletsState>((state) => state.wallets);
+const CurrencyList: FC<Props> = ({ currencyList, wallets, onSelectCurrency }) => (
+  <CurrencyListContainer data-testid="currency-list">
+    {currencyList.map((currencyItem) => (
+      <CurrencyItem
+        key={currencyItem + wallets[currencyItem]}
+        onClick={() => onSelectCurrency(currencyItem)}
+      >
+        <CurrencyTitle>{currencyItem}</CurrencyTitle>
+        <CurrencyBalance>
+          Balance:
+          {' '}
+          {getCurrencySymbol(currencyItem)}
+          {wallets[currencyItem]}
+        </CurrencyBalance>
+      </CurrencyItem>
+    ))}
+  </CurrencyListContainer>
+);
 
-  return (
-    <CurrencyListContainer data-testid="currency-list">
-      {currencyList.map((currencyItem) => (
-        <CurrencyItem
-          key={currencyItem + wallets[currencyItem]}
-          onClick={() => onSelectCurrency(currencyItem)}
-        >
-          <CurrencyTitle>{currencyItem}</CurrencyTitle>
-          <CurrencyBalance>
-            Balance:
-            {' '}
-            {getCurrencySymbol(currencyItem)}
-            {wallets[currencyItem]}
-          </CurrencyBalance>
-        </CurrencyItem>
-      ))}
-    </CurrencyListContainer>
-  );
-};
-
-export default CurrencyListPage;
+export default CurrencyList;

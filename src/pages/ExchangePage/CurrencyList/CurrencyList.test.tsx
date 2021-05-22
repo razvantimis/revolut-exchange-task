@@ -1,14 +1,13 @@
 import { fireEvent, render } from '@testing-library/react';
-import { Provider } from 'react-redux';
 import '@testing-library/jest-dom/extend-expect';
 import { CurrencyType } from '@app/state-management/enum';
-import { mockStore } from '@app/state-management/mockStore';
 import CurrencyListPage, { Props } from './CurrencyList';
 
 describe('<CurrencyListPage />', () => {
   const getProps = (newProps?: Partial<Props>) => {
     const mockProps: Props = {
       onSelectCurrency: jest.fn(),
+      wallets: { EUR: 1, GPB: 2, USD: 2 },
       currencyList: [CurrencyType.EUR, CurrencyType.USD],
     };
     return {
@@ -19,12 +18,7 @@ describe('<CurrencyListPage />', () => {
 
   const getComponent = (newProps?: Partial<Props>) => {
     const props = getProps(newProps);
-    const store = mockStore({ wallets: { EUR: 1, GPB: 2, USD: 2 } });
-    const component = render(
-      <Provider store={store}>
-        <CurrencyListPage {...props} />
-      </Provider>,
-    );
+    const component = render(<CurrencyListPage {...props} />);
     return component;
   };
 
