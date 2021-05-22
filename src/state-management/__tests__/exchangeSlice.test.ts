@@ -46,7 +46,7 @@ describe('Store => exchangeSilce', () => {
 
   it('should set valueTo  = 12.05', () => {
     const store = setupStore();
-    const nextValue = "12.05"
+    const nextValue = '12.05';
     store.dispatch(setValueTo(nextValue));
 
     expect(getExchangeStore(store).valueTo).toBe(nextValue);
@@ -54,7 +54,7 @@ describe('Store => exchangeSilce', () => {
 
   it('should set valueFrom  = 156.05', () => {
     const store = setupStore();
-    const nextValue = "156.05"
+    const nextValue = '156.05';
     store.dispatch(setValueFrom(nextValue));
 
     expect(getExchangeStore(store).valueFrom).toBe(nextValue);

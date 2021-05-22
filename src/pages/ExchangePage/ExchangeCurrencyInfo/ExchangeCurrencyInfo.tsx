@@ -1,5 +1,6 @@
 import { CurrencyType } from '@app/state-management/enum';
 import { FC } from 'react';
+import getCurrencySymbol from '@app/utils/getCurrencySymbol';
 import {
   ArrowDown,
   Container,
@@ -9,7 +10,6 @@ import {
   RightPart,
   BalanceText,
 } from './ExchangeCurrencyInfo.style';
-import getCurrencySymbol from '@app/utils/getCurrencySymbol';
 
 export type Props = {
   className?: string;
