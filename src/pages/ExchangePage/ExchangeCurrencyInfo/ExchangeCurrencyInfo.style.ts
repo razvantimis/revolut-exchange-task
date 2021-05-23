@@ -9,7 +9,7 @@ export const Container = styled.div`
 
 // #region ------ Left Part -------
 export const LeftPart = styled.div`
- flex: 1;
+ flex: 2;
 `;
 
 export const CurrencyContainer = styled.div`
