@@ -13,6 +13,10 @@ export const ExchangeContainer = styled.div`
     margin-top: 20px;
   }
 
+  .switch-btn {
+    margin-top: 20px;
+  }
+
   .exchange-btn {
     margin-top: 25px;
   }
@@ -27,9 +31,8 @@ export const Overlay = styled.div`
   top: 0;
 `;
 
-// #region -------- header ----------
-
-// #endregion
+export const ExchangeContent = styled.div`
+`;
 
 export const ExchangeButton = styled.button`
   border: none;

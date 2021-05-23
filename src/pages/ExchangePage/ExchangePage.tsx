@@ -3,6 +3,7 @@ import { CurrencyType, OpenCurrencyListType } from '@app/state-management/exchan
 import {
   setCurrencyFrom,
   setCurrencyTo,
+  setExchangeType,
   setOpenCurrencyList,
   setValueFrom,
   setValueTo,
@@ -19,10 +20,12 @@ import {
   ExchangeContainer,
   Overlay,
   ExchangeButton,
+  ExchangeContent,
 } from './ExchangePage.style';
 import NumberInput from './NumberInput';
 import CurrencyList from './CurrencyList';
 import ExchangeHeader from './ExchangeHeader';
+import SwitchExchangeType from './SwitchExchangeType';
 
 const ExchangePage: FC = () => {
   const currencyFrom = useAppSelector((state) => state.exchange.currencyFrom);
@@ -80,28 +83,35 @@ const ExchangePage: FC = () => {
         rateBetweenFromAndTo={rateBetweenFromAndTo}
         exchangeType={exchangeType}
       />
-      <ExchangeCurrencyInfo
-        className="exhange-currency-input"
-        currency={currencyFrom}
-        balance={wallets[currencyFrom]}
-        onOpenCurrenyList={() => dispatch(setOpenCurrencyList(OpenCurrencyListType.From))}
-      >
-        <NumberInput
-          value={valueFrom}
-          onChange={(value) => dispatch(setValueFrom({ value, rate: rateBetweenFromAndTo }))}
+      <ExchangeContent>
+        <ExchangeCurrencyInfo
+          className="exhange-currency-input"
+          currency={currencyFrom}
+          balance={wallets[currencyFrom]}
+          onOpenCurrenyList={() => dispatch(setOpenCurrencyList(OpenCurrencyListType.From))}
+        >
+          <NumberInput
+            value={valueFrom}
+            onChange={(value) => dispatch(setValueFrom({ value, rate: rateBetweenFromAndTo }))}
+          />
+        </ExchangeCurrencyInfo>
+        <SwitchExchangeType
+          className="switch-btn"
+          exchangeType={exchangeType}
+          onChange={(value) => dispatch(setExchangeType(value))}
         />
-      </ExchangeCurrencyInfo>
-      <ExchangeCurrencyInfo
-        className="exhange-currency-input"
-        currency={currencyTo}
-        balance={wallets[currencyTo]}
-        onOpenCurrenyList={() => dispatch(setOpenCurrencyList(OpenCurrencyListType.To))}
-      >
-        <NumberInput
-          value={valueTo}
-          onChange={(value) => dispatch(setValueTo({ value, rate: rateBetweenToAndFrom }))}
-        />
-      </ExchangeCurrencyInfo>
+        <ExchangeCurrencyInfo
+          className="exhange-currency-input"
+          currency={currencyTo}
+          balance={wallets[currencyTo]}
+          onOpenCurrenyList={() => dispatch(setOpenCurrencyList(OpenCurrencyListType.To))}
+        >
+          <NumberInput
+            value={valueTo}
+            onChange={(value) => dispatch(setValueTo({ value, rate: rateBetweenToAndFrom }))}
+          />
+        </ExchangeCurrencyInfo>
+      </ExchangeContent>
       <ExchangeButton
         disabled={!isValid}
         className="exchange-btn"

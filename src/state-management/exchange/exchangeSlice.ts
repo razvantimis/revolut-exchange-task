@@ -57,6 +57,9 @@ const exchangeSlice = createSlice({
     setOpenCurrencyList(state, action: PayloadAction<OpenCurrencyListType | null>) {
       state.openCurrencyList = action.payload;
     },
+    setExchangeType(state, action: PayloadAction<ExchangeType>) {
+      state.exchangeType = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(exchangeTransaction.fulfilled, (state) => {
@@ -72,5 +75,6 @@ export const {
   setValueFrom,
   setValueTo,
   setOpenCurrencyList,
+  setExchangeType,
 } = exchangeSlice.actions;
 export default exchangeSlice.reducer;
