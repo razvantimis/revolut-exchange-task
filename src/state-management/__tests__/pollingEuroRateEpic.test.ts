@@ -11,22 +11,25 @@ describe("pollingEuroRateEpic()", () => {
     [CurrencyType.GBP]: 1,
   };
 
-  it("should trigger action updateEuroRate", (done) => {
-    const refreshRate = 2;
+  it("should trigger action updateEuroRate for 5 times", (done) => {
+    const refreshRate = 1;
     const action$ = ActionsObservable.of(startPollingEuroRate(refreshRate))
     const dependencies = {
       getJSON: () => of({
-        rates: mockEuroRate
+        rates: { ...mockEuroRate }
       }),
       exchangeAccessKey: '',
     };
 
     const output$ = pollingEuroRateEpic(action$, null as any, dependencies);
+    let countNumber = 0;
     output$
       .subscribe((action: ReturnType<typeof updateEuroRate>) => {
         expect(action.rateEuro).toEqual(mockEuroRate);
-        done();
-
+        countNumber++;
+        if (countNumber == 5) {
+          done();
+        }
       });
 
   });
