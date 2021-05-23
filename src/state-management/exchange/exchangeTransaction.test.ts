@@ -65,11 +65,11 @@ describe('async action exchangeTransaction', () => {
     });
   });
 
-  it('should buy 10 USD with EUR with rate(EURUSD) = 0.5', async () => {
+  it('should buy USD with 10 EUR with rate(EURUSD) = 1.22', async () => {
     const from = CurrencyType.EUR;
     const to = CurrencyType.USD;
     const type = ExchangeType.Buy;
-    const rate = 0.5;
+    const rate = 1.22;
     const value = '10';
 
     const mockThunkApi = getThunkApiMock({
@@ -79,7 +79,7 @@ describe('async action exchangeTransaction', () => {
     const result = await exchangeTransactionLogic(undefined, mockThunkApi);
 
     expect(result).toEqual({
-      sell: { value: 20, currency: CurrencyType.USD, type: ExchangeType.Sell },
+      sell: { value: 10 * rate, currency: CurrencyType.USD, type: ExchangeType.Sell },
       buy: { value: 10, currency: CurrencyType.EUR, type: ExchangeType.Buy },
     });
   });

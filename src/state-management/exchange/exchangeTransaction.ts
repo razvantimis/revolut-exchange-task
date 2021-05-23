@@ -39,6 +39,12 @@ export function getSellAndBuyTransaction(
   valueFrom: number,
   euroRates: Rates,
 ) {
+  const sellOrBuyValue = valueFrom * getRateBetweenFromAndToLogic(
+    currencyFrom,
+    currencyTo,
+    euroRates,
+  );
+
   switch (exchangeType) {
     case ExchangeType.Sell: {
       const sellTranstion: Transaction = {
@@ -47,14 +53,9 @@ export function getSellAndBuyTransaction(
         type: ExchangeType.Sell,
       };
 
-      const buyValue = valueFrom * getRateBetweenFromAndToLogic(
-        currencyFrom,
-        currencyTo,
-        euroRates,
-      );
       const buyTranstion: Transaction = {
         currency: currencyTo,
-        value: buyValue,
+        value: sellOrBuyValue,
         type: ExchangeType.Buy,
       };
       return {
@@ -69,14 +70,9 @@ export function getSellAndBuyTransaction(
         type: ExchangeType.Buy,
       };
 
-      const sellValue = valueFrom * getRateBetweenFromAndToLogic(
-        currencyTo,
-        currencyFrom,
-        euroRates,
-      );
       const sellTranstion: Transaction = {
         currency: currencyTo,
-        value: sellValue,
+        value: sellOrBuyValue,
         type: ExchangeType.Sell,
       };
       return {
