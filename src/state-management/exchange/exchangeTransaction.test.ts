@@ -1,4 +1,3 @@
-import getRates from '../rates/getRates';
 import { RootState } from '../store';
 import { CurrencyType, ExchangeType } from './enum';
 import { exchangeTransactionLogic } from './exchangeTransaction';
@@ -22,18 +21,13 @@ describe('async action exchangeTransaction', () => {
     allMoney = 50,
   }: ThunckApiArgs) => {
     const baseRateEuro = {
-      [CurrencyType.EUR]: 1,
-      [CurrencyType.USD]: 1.2188,
-      [CurrencyType.GBP]: 0.85870,
+      [CurrencyType.EUR]: rate,
+      [CurrencyType.USD]: rate,
+      [CurrencyType.GBP]: rate,
     };
-    const rates = getRates(baseRateEuro);
-
-    rates[from][to] = rate;
-    rates[to][from] = 1 / rates[from][to];
 
     const ratesState = {
       baseRateEuro,
-      rates,
     };
     const exchangeState = {
       currencyFrom: from,

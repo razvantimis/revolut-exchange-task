@@ -7,7 +7,7 @@ import exchange, {
   setValueTo,
 } from './exchangeSlice';
 import { CurrencyType, OpenCurrencyListType } from './enum';
-import getRates from '../rates/getRates';
+import { getRatesLogic } from '../rates/getRates';
 
 describe('Store => exchangeSilce', () => {
   const rateEuro = {
@@ -15,7 +15,7 @@ describe('Store => exchangeSilce', () => {
     [CurrencyType.USD]: 1.2188,
     [CurrencyType.GBP]: 0.85870,
   };
-  const rates = getRates(rateEuro);
+  const rates = getRatesLogic(rateEuro);
 
   const setupStore = () => {
     const store = configureStore({

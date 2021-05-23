@@ -1,5 +1,5 @@
 import { CurrencyType } from '../exchange/enum';
-import getRates from './getRates';
+import { getRatesLogic } from './getRates';
 import { Rates } from './types';
 
 describe('State operation => getRates', () => {
@@ -9,7 +9,7 @@ describe('State operation => getRates', () => {
     [CurrencyType.GBP]: 0.85870,
   };
   it('should computed rate from all currency by euroRate', () => {
-    const rates = getRates(euroRate);
+    const rates = getRatesLogic(euroRate);
 
     expect(rates).toEqual({
       [CurrencyType.EUR]: euroRate,

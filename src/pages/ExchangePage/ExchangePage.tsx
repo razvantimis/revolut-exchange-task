@@ -25,12 +25,13 @@ import {
 } from './ExchangePage.style';
 import NumberInput from './NumberInput';
 import CurrencyList from './CurrencyList';
+import getRates from '@app/state-management/rates/getRates';
 
 const ExchangePage: FC = () => {
   const currencyFrom = useAppSelector((state) => state.exchange.currencyFrom);
   const currencyTo = useAppSelector((state) => state.exchange.currencyTo);
   const wallets = useAppSelector((state) => state.wallets);
-  const rates = useAppSelector((state) => state.rates.rates);
+  const rates = useAppSelector(getRates);
   const valueFrom = useAppSelector((state) => state.exchange.valueFrom);
   const valueTo = useAppSelector((state) => state.exchange.valueTo);
   const openCurrencyList = useAppSelector((state) => state.exchange.openCurrencyList);

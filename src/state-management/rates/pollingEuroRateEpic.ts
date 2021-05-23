@@ -9,8 +9,9 @@ import {
   switchMap,
   takeUntil,
   distinctUntilChanged,
+  catchError,
 } from 'rxjs/operators';
-import { timer, from } from 'rxjs';
+import { timer, from, of } from 'rxjs';
 import type { DependenciesEpic, RootState } from '../store';
 import * as actions from './actions';
 import * as actionTypes from './actionTypes';
@@ -19,10 +20,10 @@ import type { Rates } from './types';
 
 const currencyList = Object.values(CurrencyType).join(',');
 const fetchEuroRate = ({ getJSON, exchangeAccessKey }: DependenciesEpic) => from(
-  getJSON(`http://data.fixer.io/api/latest?access_key=${exchangeAccessKey}&symbols=${currencyList}&format=1`),
+  getJSON(`http://datatest.fixer.io/api/latest?access_key=${exchangeAccessKey}&symbols=${currencyList}&format=1`),
 ).pipe(
   map((data: any) => data.rates as Rates[CurrencyType.EUR]),
-  // catchError(() => of({ USD: 1.218125, EUR: 1, GBP: 0.860835 })),
+  catchError(() => of({ USD: 1.218125, EUR: 1, GBP: 0.860835 })),
 );
 
 const pollingEuroRateEpic: Epic = (
