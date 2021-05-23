@@ -7,15 +7,11 @@ import exchange, {
   setValueTo,
 } from './exchangeSlice';
 import { CurrencyType, OpenCurrencyListType } from './enum';
-import { getRatesLogic } from '../rates/getRates';
+import { getRateBetweenFromAndToLogic } from '../rates/getRateBetweenFromAndTo';
+import { getMockEuroRate } from '../utils/getMockData';
 
 describe('Store => exchangeSilce', () => {
-  const rateEuro = {
-    [CurrencyType.EUR]: 1,
-    [CurrencyType.USD]: 1.2188,
-    [CurrencyType.GBP]: 0.85870,
-  };
-  const rates = getRatesLogic(rateEuro);
+  const rateEuro = getMockEuroRate();
 
   const setupStore = () => {
     const store = configureStore({
@@ -51,13 +47,15 @@ describe('Store => exchangeSilce', () => {
 
   it('should valueTo be 12.05 * rate(EURUSD) if user set valueFrom', () => {
     const store = setupStore();
-    store.dispatch(setCurrencyFrom(CurrencyType.EUR));
-    store.dispatch(setCurrencyTo(CurrencyType.USD));
+    const currencyFrom = CurrencyType.EUR;
+    const currencyTo = CurrencyType.USD;
+    store.dispatch(setCurrencyFrom(currencyFrom));
+    store.dispatch(setCurrencyTo(currencyTo));
 
     const nextValueFrom = '12.05';
-    store.dispatch(setValueFrom({ value: nextValueFrom, rates }));
+    const rate = getRateBetweenFromAndToLogic(currencyFrom, currencyTo, rateEuro);
+    store.dispatch(setValueFrom({ value: nextValueFrom, rate }));
 
-    const rate = rates[CurrencyType.EUR][CurrencyType.USD];
     const expectedValueTo = parseFloat(nextValueFrom) * rate;
 
     expect(getExchangeStore(store).valueTo).toBe(expectedValueTo.toFixed(2));
@@ -66,13 +64,15 @@ describe('Store => exchangeSilce', () => {
 
   it('should valueFrom be 6.10 * rate(USDEUR) if user set valueTo', () => {
     const store = setupStore();
-    store.dispatch(setCurrencyFrom(CurrencyType.EUR));
-    store.dispatch(setCurrencyTo(CurrencyType.USD));
+    const currencyFrom = CurrencyType.EUR;
+    const currencyTo = CurrencyType.USD;
+    store.dispatch(setCurrencyFrom(currencyFrom));
+    store.dispatch(setCurrencyTo(currencyTo));
 
     const nextValueTo = '6.10';
-    store.dispatch(setValueTo({ value: nextValueTo, rates }));
+    const rate = getRateBetweenFromAndToLogic(currencyFrom, currencyTo, rateEuro);
+    store.dispatch(setValueTo({ value: nextValueTo, rate }));
 
-    const rate = rates[CurrencyType.USD][CurrencyType.EUR];
     const expectedValueFrom = parseFloat(nextValueTo) * rate;
 
     expect(getExchangeStore(store).valueTo).toBe(nextValueTo);
@@ -81,13 +81,15 @@ describe('Store => exchangeSilce', () => {
 
   it('should valueFrom be 6.10 * rate(GBPEUR) if user set valueTo', () => {
     const store = setupStore();
-    store.dispatch(setCurrencyFrom(CurrencyType.EUR));
-    store.dispatch(setCurrencyTo(CurrencyType.GBP));
+    const currencyFrom = CurrencyType.EUR;
+    const currencyTo = CurrencyType.GBP;
+    store.dispatch(setCurrencyFrom(currencyFrom));
+    store.dispatch(setCurrencyTo(currencyTo));
 
     const nextValueTo = '6.10';
-    store.dispatch(setValueTo({ value: nextValueTo, rates }));
+    const rate = getRateBetweenFromAndToLogic(currencyFrom, currencyTo, rateEuro);
+    store.dispatch(setValueTo({ value: nextValueTo, rate }));
 
-    const rate = rates[CurrencyType.GBP][CurrencyType.EUR];
     const expectedValueFrom = parseFloat(nextValueTo) * rate;
 
     expect(getExchangeStore(store).valueTo).toBe(nextValueTo);

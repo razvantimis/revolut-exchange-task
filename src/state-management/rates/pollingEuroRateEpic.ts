@@ -22,8 +22,10 @@ const currencyList = Object.values(CurrencyType).join(',');
 const fetchEuroRate = ({ getJSON, exchangeAccessKey }: DependenciesEpic) => from(
   getJSON(`http://datatest.fixer.io/api/latest?access_key=${exchangeAccessKey}&symbols=${currencyList}&format=1`),
 ).pipe(
-  map((data: any) => data.rates as Rates[CurrencyType.EUR]),
-  catchError(() => of({ USD: 1.218125, EUR: 1, GBP: 0.860835 })),
+  map((data: any) => data.rates as Rates),
+  catchError(() => of({
+    USD: 1.218125, EUR: 1, GBP: 0.860835, RON: 4.93,
+  })),
 );
 
 const pollingEuroRateEpic: Epic = (

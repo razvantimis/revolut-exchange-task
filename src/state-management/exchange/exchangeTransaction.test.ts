@@ -1,4 +1,5 @@
 import { RootState } from '../store';
+import { getMockEuroRate, getMockWallet } from '../utils/getMockData';
 import { CurrencyType, ExchangeType } from './enum';
 import { exchangeTransactionLogic } from './exchangeTransaction';
 
@@ -20,14 +21,10 @@ describe('async action exchangeTransaction', () => {
     type,
     allMoney = 50,
   }: ThunckApiArgs) => {
-    const baseRateEuro = {
-      [CurrencyType.EUR]: rate,
-      [CurrencyType.USD]: rate,
-      [CurrencyType.GBP]: rate,
-    };
+    const euroRates = getMockEuroRate(rate);
 
     const ratesState = {
-      baseRateEuro,
+      euroRates,
     };
     const exchangeState = {
       currencyFrom: from,
@@ -38,11 +35,7 @@ describe('async action exchangeTransaction', () => {
       openCurrencyList: null,
     };
 
-    const walletsState = {
-      [CurrencyType.EUR]: allMoney,
-      [CurrencyType.USD]: allMoney,
-      [CurrencyType.GBP]: allMoney,
-    };
+    const walletsState = getMockWallet(allMoney);
 
     return {
       getState: (): Partial<RootState> => ({

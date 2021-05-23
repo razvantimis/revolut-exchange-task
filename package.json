@@ -11,7 +11,8 @@
     "lint-css": "stylelint '**/*.css' ",
     "lint-css-fix": "stylelint '**/*.css' --fix",
     "coverage": "npm test -- --coverage --runInBand --watchAll=false",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "tsc": "tsc --noEmit"
   },
   "jest": {
     "moduleNameMapper": {

@@ -1,13 +1,12 @@
-import { CurrencyType } from '../exchange/enum';
 import type { Rates, RatesActionTypes } from './types';
 import * as actionType from './actionTypes';
 
 type RatesState = {
-  baseRateEuro: Rates[CurrencyType.EUR] | null
+  euroRates: Rates | null
 };
 
 const initialState: RatesState = {
-  baseRateEuro: null,
+  euroRates: null,
 };
 
 export default function rates(state = initialState, action: RatesActionTypes): RatesState {
@@ -15,7 +14,7 @@ export default function rates(state = initialState, action: RatesActionTypes): R
     case actionType.updateEuroRate:
       return {
         ...state,
-        baseRateEuro: action.rateEuro,
+        euroRates: action.euroRates,
       };
 
     default:

@@ -3,16 +3,16 @@ import type { RootState } from '../store';
 import { getSellAndBuyTransaction, isExchangeValid } from './exchangeTransaction';
 
 const isValidExchange = createSelector(
-  (state: RootState) => state.rates.rates,
+  (state: RootState) => state.rates.euroRates,
   (state: RootState) => state.wallets,
   (state: RootState) => state.exchange,
-  (rates, wallets, {
+  (baseRateEuro, wallets, {
     currencyFrom,
     currencyTo,
     valueFrom,
     exchangeType,
   }) => {
-    if (!rates) return false;
+    if (!baseRateEuro) return false;
 
     const valueFromFloat = parseFloat(valueFrom);
     const transactions = getSellAndBuyTransaction(
@@ -20,7 +20,7 @@ const isValidExchange = createSelector(
       currencyFrom,
       currencyTo,
       valueFromFloat,
-      rates!,
+      baseRateEuro!,
     );
     const isValid = isExchangeValid(transactions, wallets);
 

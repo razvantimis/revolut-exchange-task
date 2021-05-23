@@ -2,14 +2,10 @@ import { ActionsObservable } from 'redux-observable';
 import { of } from 'rxjs';
 import { startPollingEuroRate, updateEuroRate } from './actions';
 import pollingEuroRateEpic from './pollingEuroRateEpic';
-import { CurrencyType } from '../exchange/enum';
+import { getMockEuroRate } from '../utils/getMockData';
 
 describe('pollingEuroRateEpic()', () => {
-  const mockEuroRate = {
-    [CurrencyType.EUR]: 1,
-    [CurrencyType.USD]: 1,
-    [CurrencyType.GBP]: 1,
-  };
+  const mockEuroRate = getMockEuroRate();
 
   it('should trigger action updateEuroRate for 5 times', (done) => {
     const refreshRate = 1;
@@ -25,7 +21,7 @@ describe('pollingEuroRateEpic()', () => {
     let countNumber = 0;
     output$
       .subscribe((action: ReturnType<typeof updateEuroRate>) => {
-        expect(action.rateEuro).toEqual(mockEuroRate);
+        expect(action.euroRates).toEqual(mockEuroRate);
         countNumber += 1;
         if (countNumber === 5) {
           done();

@@ -1,13 +1,14 @@
 import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { CurrencyType } from '@app/state-management/exchange/enum';
+import { getMockWallet } from '@app/state-management/utils/getMockData';
 import CurrencyListPage, { Props } from './CurrencyList';
 
 describe('<CurrencyListPage />', () => {
   const getProps = (newProps?: Partial<Props>) => {
     const mockProps: Props = {
       onSelectCurrency: jest.fn(),
-      wallets: { EUR: 1, GBP: 2, USD: 2 },
+      wallets: getMockWallet(2),
       currencyList: [CurrencyType.EUR, CurrencyType.USD],
     };
     return {

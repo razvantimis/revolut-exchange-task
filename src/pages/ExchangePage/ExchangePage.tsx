@@ -14,7 +14,7 @@ import { REFRESH_RATE_IN_MILLISECONDS } from '@app/config';
 import exchangeTransaction from '@app/state-management/exchange/exchangeTransaction';
 import isValidExchange from '@app/state-management/exchange/isValidExchange';
 import getCurrencySymbol from '@app/utils/getCurrencySymbol';
-import getRates from '@app/state-management/rates/getRates';
+import getRateBetweenFromAndTo from '@app/state-management/rates/getRateBetweenFromAndTo';
 import ExchangeCurrencyInfo from './ExchangeCurrencyInfo';
 import {
   ExchangeTitle,
@@ -31,12 +31,17 @@ const ExchangePage: FC = () => {
   const currencyFrom = useAppSelector((state) => state.exchange.currencyFrom);
   const currencyTo = useAppSelector((state) => state.exchange.currencyTo);
   const wallets = useAppSelector((state) => state.wallets);
-  const rates = useAppSelector(getRates);
   const valueFrom = useAppSelector((state) => state.exchange.valueFrom);
   const valueTo = useAppSelector((state) => state.exchange.valueTo);
   const openCurrencyList = useAppSelector((state) => state.exchange.openCurrencyList);
   const exchangeType = useAppSelector((state) => state.exchange.exchangeType);
   const isValid = useAppSelector(isValidExchange);
+  const rateBetweenFromAndTo = useAppSelector(
+    (state) => getRateBetweenFromAndTo(state, currencyFrom, currencyTo),
+  );
+  const rateBetweenToAndFrom = useAppSelector(
+    (state) => getRateBetweenFromAndTo(state, currencyTo, currencyFrom),
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -78,13 +83,13 @@ const ExchangePage: FC = () => {
           {' '}
           {currencyFrom}
         </ExchangeTitle>
-        {rates && (
+        {rateBetweenFromAndTo && (
           <ExchangeSubTitle data-testid="header-subtitle">
             {getCurrencySymbol(currencyFrom)}
             1 =
             {' '}
             {getCurrencySymbol(currencyTo)}
-            {rates[currencyFrom][currencyTo]}
+            {rateBetweenFromAndTo}
           </ExchangeSubTitle>
         )}
       </ExchangeHeader>
@@ -96,7 +101,7 @@ const ExchangePage: FC = () => {
       >
         <NumberInput
           value={valueFrom}
-          onChange={(value) => dispatch(setValueFrom({ value, rates }))}
+          onChange={(value) => dispatch(setValueFrom({ value, rate: rateBetweenFromAndTo }))}
         />
       </ExchangeCurrencyInfo>
       <ExchangeCurrencyInfo
@@ -107,7 +112,7 @@ const ExchangePage: FC = () => {
       >
         <NumberInput
           value={valueTo}
-          onChange={(value) => dispatch(setValueTo({ value, rates }))}
+          onChange={(value) => dispatch(setValueTo({ value, rate: rateBetweenToAndFrom }))}
         />
       </ExchangeCurrencyInfo>
       <ExchangeButton

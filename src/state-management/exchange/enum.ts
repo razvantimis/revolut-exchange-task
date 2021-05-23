@@ -2,6 +2,7 @@ export enum CurrencyType {
   USD = 'USD',
   EUR = 'EUR',
   GBP = 'GBP',
+  RON = 'RON',
 }
 
 export enum OpenCurrencyListType {

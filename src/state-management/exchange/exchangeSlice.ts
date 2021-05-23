@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CurrencyType, ExchangeType, OpenCurrencyListType } from './enum';
-import { Rates } from '../rates/types';
 import exchangeTransaction from './exchangeTransaction';
 
 type ExchangeState = {
@@ -12,7 +11,7 @@ type ExchangeState = {
   exchangeType: ExchangeType;
 };
 
-type PayloadSetValue = PayloadAction<{ value: string, rates: Rates | null }>;
+type PayloadSetValue = PayloadAction<{ value: string, rate: number | null }>;
 
 const initialState: ExchangeState = {
   currencyFrom: CurrencyType.EUR,
@@ -38,20 +37,18 @@ const exchangeSlice = createSlice({
       state.valueTo = '0';
     },
     setValueFrom(state, action: PayloadSetValue) {
-      const { payload: { value: newValueFrom, rates } } = action;
-      if (!rates) return;
+      const { payload: { value: newValueFrom, rate } } = action;
+      if (!rate) return;
 
-      const rate = rates[state.currencyFrom][state.currencyTo];
       const newValueTo = parseFloat(newValueFrom) * rate;
 
       state.valueFrom = newValueFrom;
       state.valueTo = newValueTo.toFixed(2);
     },
     setValueTo(state, action: PayloadSetValue) {
-      const { payload: { value: newValueTo, rates } } = action;
-      if (!rates) return;
+      const { payload: { value: newValueTo, rate } } = action;
+      if (!rate) return;
 
-      const rate = rates[state.currencyTo][state.currencyFrom];
       const newValueFrom = parseFloat(newValueTo) * rate;
 
       state.valueTo = newValueTo;

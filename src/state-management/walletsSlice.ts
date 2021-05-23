@@ -7,9 +7,10 @@ export type WalletsState = {
 };
 
 const initialState: WalletsState = {
-  [CurrencyType.USD]: 10.34,
-  [CurrencyType.GBP]: 34.4,
-  [CurrencyType.EUR]: 100.45,
+  [CurrencyType.USD]: 100,
+  [CurrencyType.GBP]: 100,
+  [CurrencyType.EUR]: 100,
+  [CurrencyType.RON]: 100,
 };
 
 const walletsSlice = createSlice({

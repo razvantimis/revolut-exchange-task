@@ -9,6 +9,8 @@ export default function getCurrencySymbol(currency: CurrencyType): string {
       return '€';
     case CurrencyType.GBP:
       return '£';
+    case CurrencyType.RON:
+      return 'lei';
     default:
       throw new UnreachableCaseError(currency);
   }

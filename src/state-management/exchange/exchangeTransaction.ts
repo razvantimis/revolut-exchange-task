@@ -1,6 +1,6 @@
 import { AsyncThunkPayloadCreator, createAsyncThunk } from '@reduxjs/toolkit';
 import { UnreachableCaseError } from 'ts-essentials';
-import getRates from '../rates/getRates';
+import { getRateBetweenFromAndToLogic } from '../rates/getRateBetweenFromAndTo';
 import { Rates } from '../rates/types';
 import type { RootState } from '../store';
 import type { WalletsState } from '../walletsSlice';
@@ -14,7 +14,10 @@ type Transaction = {
 
 type ExchangeTransactionReturn = { sell: Transaction, buy: Transaction };
 
-export function isExchangeValid(transaction: ExchangeTransactionReturn, wallets: WalletsState) {
+export function isExchangeValid(
+  transaction: ExchangeTransactionReturn,
+  wallets: WalletsState,
+) {
   const { sell, buy } = transaction;
 
   if (sell.currency === buy.currency) {
@@ -34,7 +37,7 @@ export function getSellAndBuyTransaction(
   currencyFrom: CurrencyType,
   currencyTo: CurrencyType,
   valueFrom: number,
-  rates: Rates,
+  euroRates: Rates,
 ) {
   switch (exchangeType) {
     case ExchangeType.Sell: {
@@ -44,7 +47,11 @@ export function getSellAndBuyTransaction(
         type: ExchangeType.Sell,
       };
 
-      const buyValue = valueFrom * rates[currencyFrom][currencyTo];
+      const buyValue = valueFrom * getRateBetweenFromAndToLogic(
+        currencyFrom,
+        currencyTo,
+        euroRates,
+      );
       const buyTranstion: Transaction = {
         currency: currencyTo,
         value: buyValue,
@@ -62,7 +69,11 @@ export function getSellAndBuyTransaction(
         type: ExchangeType.Buy,
       };
 
-      const sellValue = valueFrom * rates[currencyTo][currencyFrom];
+      const sellValue = valueFrom * getRateBetweenFromAndToLogic(
+        currencyTo,
+        currencyFrom,
+        euroRates,
+      );
       const sellTranstion: Transaction = {
         currency: currencyTo,
         value: sellValue,
@@ -85,7 +96,6 @@ void
   _, { getState },
 ) => {
   const state = getState() as RootState;
-  const rates = getRates(state);
   const { wallets } = state;
   const {
     currencyFrom,
@@ -93,6 +103,7 @@ void
     valueFrom,
     exchangeType,
   } = state.exchange;
+  const rates = state.rates.euroRates;
   const valueFromFloat = parseFloat(valueFrom);
 
   const transactions = getSellAndBuyTransaction(
