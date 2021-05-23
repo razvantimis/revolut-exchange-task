@@ -14,9 +14,13 @@ type Transaction = {
 type ExchangeTransactionReturn = { sell: Transaction, buy: Transaction };
 
 export function isExchangeValid(transaction: ExchangeTransactionReturn, wallets: WalletsState) {
-  const { sell } = transaction;
-  const sellBalance = wallets[sell.currency];
+  const { sell, buy } = transaction;
 
+  if (sell.currency === buy.currency) {
+    return false;
+  }
+
+  const sellBalance = wallets[sell.currency];
   if (sellBalance >= sell.value) {
     return true;
   }

@@ -13,6 +13,7 @@ import { startPollingEuroRate, stopPollingEuroRate } from '@app/state-management
 import { REFRESH_RATE_IN_MILLISECONDS } from '@app/config';
 import exchangeTransaction from '@app/state-management/exchange/exchangeTransaction';
 import isValidExchange from '@app/state-management/exchange/isValidExchange';
+import getCurrencySymbol from '@app/utils/getCurrencySymbol';
 import ExchangeCurrencyInfo from './ExchangeCurrencyInfo';
 import {
   ExchangeTitle,
@@ -76,7 +77,15 @@ const ExchangePage: FC = () => {
           {' '}
           {currencyFrom}
         </ExchangeTitle>
-        <ExchangeSubTitle data-testid="header-subtitle">lei 1 = 0.454$</ExchangeSubTitle>
+        {rates && (
+          <ExchangeSubTitle data-testid="header-subtitle">
+            {getCurrencySymbol(currencyFrom)}
+            1 =
+            {' '}
+            {getCurrencySymbol(currencyTo)}
+            {rates[currencyFrom][currencyTo]}
+          </ExchangeSubTitle>
+        )}
       </ExchangeHeader>
       <ExchangeCurrencyInfo
         className="exhange-currency-input"

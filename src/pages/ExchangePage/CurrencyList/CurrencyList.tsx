@@ -27,7 +27,7 @@ const CurrencyList: FC<Props> = ({ currencyList, wallets, onSelectCurrency }) =>
           Balance:
           {' '}
           {getCurrencySymbol(currencyItem)}
-          {wallets[currencyItem]}
+          {wallets[currencyItem].toFixed(2)}
         </CurrencyBalance>
       </CurrencyItem>
     ))}
