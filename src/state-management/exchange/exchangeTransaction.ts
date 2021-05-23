@@ -24,6 +24,10 @@ export function isExchangeValid(
     return false;
   }
 
+  if (sell.value === 0 || buy.value === 0) {
+    return false;
+  }
+
   const sellBalance = wallets[sell.currency];
   if (sellBalance >= sell.value) {
     return true;
