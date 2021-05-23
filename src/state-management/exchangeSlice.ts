@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CurrencyType, ExchangeType, OpenCurrencyListType } from './enum';
-import getRates from './rates/getRates';
 import { Rates } from './rates/types';
 
 type ExchangeState = {
@@ -9,16 +8,10 @@ type ExchangeState = {
   valueFrom: string;
   valueTo: string;
   openCurrencyList: OpenCurrencyListType | null;
-  rateEuro: Rates[CurrencyType.EUR]
   exchangeType: ExchangeType;
-  rates: Rates;
 };
 
-const rateEuro = {
-  [CurrencyType.EUR]: 1,
-  [CurrencyType.USD]: 1,
-  [CurrencyType.GBP]: 1,
-};
+type PayloadSetValue = PayloadAction<{ value: string, rates: Rates | null }>;
 
 const initialState: ExchangeState = {
   currencyFrom: CurrencyType.EUR,
@@ -27,8 +20,6 @@ const initialState: ExchangeState = {
   valueTo: '0',
   openCurrencyList: null,
   exchangeType: ExchangeType.Buy,
-  rateEuro,
-  rates: getRates(rateEuro),
 };
 
 const exchangeSlice = createSlice({
@@ -45,17 +36,21 @@ const exchangeSlice = createSlice({
       state.valueFrom = '0';
       state.valueTo = '0';
     },
-    setValueFrom(state, action: PayloadAction<string>) {
-      const { payload: newValueFrom } = action;
-      const rate = state.rates[state.currencyFrom][state.currencyTo];
+    setValueFrom(state, action: PayloadSetValue) {
+      const { payload: { value: newValueFrom, rates } } = action;
+      if (!rates) return;
+
+      const rate = rates[state.currencyFrom][state.currencyTo];
       const newValueTo = parseFloat(newValueFrom) * rate;
 
       state.valueFrom = newValueFrom;
       state.valueTo = newValueTo.toFixed(2);
     },
-    setValueTo(state, action: PayloadAction<string>) {
-      const { payload: newValueTo } = action;
-      const rate = state.rates[state.currencyTo][state.currencyFrom];
+    setValueTo(state, action: PayloadSetValue) {
+      const { payload: { value: newValueTo, rates } } = action;
+      if (!rates) return;
+
+      const rate = rates[state.currencyTo][state.currencyFrom];
       const newValueFrom = parseFloat(newValueTo) * rate;
 
       state.valueTo = newValueTo;

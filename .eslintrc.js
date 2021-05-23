@@ -19,6 +19,7 @@ module.exports = {
     "react/prop-types": "off",
     "react/jsx-props-no-spreading": "off",
     "no-param-reassign": "off",
+    "jest/no-done-callback": "off"
   },
   settings: {
     "import/core-modules": ["rxjs/operators", "rxjs/ajax"]

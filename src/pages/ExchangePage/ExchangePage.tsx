@@ -27,6 +27,7 @@ const ExchangePage: FC = () => {
   const currencyFrom = useAppSelector((state) => state.exchange.currencyFrom);
   const currencyTo = useAppSelector((state) => state.exchange.currencyTo);
   const wallets = useAppSelector((state) => state.wallets);
+  const rates = useAppSelector((state) => state.rates.rates);
   const valueFrom = useAppSelector((state) => state.exchange.valueFrom);
   const valueTo = useAppSelector((state) => state.exchange.valueTo);
   const openCurrencyList = useAppSelector((state) => state.exchange.openCurrencyList);
@@ -39,7 +40,7 @@ const ExchangePage: FC = () => {
     return () => {
       dispatch(stopPollingEuroRate());
     };
-  });
+  }, [REFRESH_RATE]);
 
   const handleSelectCurrency = (selectedCurrency: CurrencyType) => {
     switch (openCurrencyList) {
@@ -83,7 +84,7 @@ const ExchangePage: FC = () => {
       >
         <NumberInput
           value={valueFrom}
-          onChange={(value) => dispatch(setValueFrom(value))}
+          onChange={(value) => dispatch(setValueFrom({ value, rates }))}
         />
       </ExchangeCurrencyInfo>
       <ExchangeCurrencyInfo
@@ -94,7 +95,7 @@ const ExchangePage: FC = () => {
       >
         <NumberInput
           value={valueTo}
-          onChange={(value) => dispatch(setValueTo(value))}
+          onChange={(value) => dispatch(setValueTo({ value, rates }))}
         />
       </ExchangeCurrencyInfo>
       <ExchangeButton className="exchange-btn">

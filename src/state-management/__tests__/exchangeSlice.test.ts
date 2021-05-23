@@ -19,12 +19,6 @@ describe('Store => exchangeSilce', () => {
 
   const setupStore = () => {
     const store = configureStore({
-      preloadedState: {
-        exchange: {
-          rateEuro,
-          rates,
-        },
-      },
       reducer: {
         exchange,
       },
@@ -61,7 +55,7 @@ describe('Store => exchangeSilce', () => {
     store.dispatch(setCurrencyTo(CurrencyType.USD));
 
     const nextValueFrom = '12.05';
-    store.dispatch(setValueFrom(nextValueFrom));
+    store.dispatch(setValueFrom({ value: nextValueFrom, rates }));
 
     const rate = rates[CurrencyType.EUR][CurrencyType.USD];
     const expectedValueTo = parseFloat(nextValueFrom) * rate;
@@ -76,7 +70,7 @@ describe('Store => exchangeSilce', () => {
     store.dispatch(setCurrencyTo(CurrencyType.USD));
 
     const nextValueTo = '6.10';
-    store.dispatch(setValueTo(nextValueTo));
+    store.dispatch(setValueTo({ value: nextValueTo, rates }));
 
     const rate = rates[CurrencyType.USD][CurrencyType.EUR];
     const expectedValueFrom = parseFloat(nextValueTo) * rate;
@@ -91,7 +85,7 @@ describe('Store => exchangeSilce', () => {
     store.dispatch(setCurrencyTo(CurrencyType.GBP));
 
     const nextValueTo = '6.10';
-    store.dispatch(setValueTo(nextValueTo));
+    store.dispatch(setValueTo({ value: nextValueTo, rates }));
 
     const rate = rates[CurrencyType.GBP][CurrencyType.EUR];
     const expectedValueFrom = parseFloat(nextValueTo) * rate;
