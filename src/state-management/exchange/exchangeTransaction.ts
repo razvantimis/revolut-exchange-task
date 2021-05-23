@@ -35,7 +35,7 @@ function getSellAndBuyTransaction(
     case ExchangeType.Sell: {
       const sellTranstion: Transaction = {
         currency: currencyFrom,
-        value: -valueFrom,
+        value: valueFrom,
         type: ExchangeType.Sell,
       };
 

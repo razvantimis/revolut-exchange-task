@@ -73,7 +73,7 @@ describe('async action exchangeTransaction', () => {
     const result = await exchangeTransactionLogic(undefined, mockThunkApi);
 
     expect(result).toEqual({
-      sell: { value: -10, currency: CurrencyType.EUR, type: ExchangeType.Sell },
+      sell: { value: 10, currency: CurrencyType.EUR, type: ExchangeType.Sell },
       buy: { value: 5, currency: CurrencyType.USD, type: ExchangeType.Buy },
     });
   });

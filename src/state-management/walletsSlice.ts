@@ -20,7 +20,7 @@ const walletsSlice = createSlice({
     builder.addCase(exchangeTransaction.fulfilled, (state, action) => {
       const { sell, buy } = action.payload;
 
-      state[sell.currency] += sell.value;
+      state[sell.currency] -= sell.value;
       state[buy.currency] += buy.value;
     });
   },
