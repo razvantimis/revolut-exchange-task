@@ -17,15 +17,14 @@ import * as actions from './actions';
 import * as actionTypes from './actionTypes';
 import { CurrencyType } from '../exchange/enum';
 import type { Rates } from './types';
+import { getMockEuroRate } from '../utils/getMockData';
 
 const currencyList = Object.values(CurrencyType).join(',');
 const fetchEuroRate = ({ getJSON, exchangeAccessKey }: DependenciesEpic) => from(
   getJSON(`http://datatest.fixer.io/api/latest?access_key=${exchangeAccessKey}&symbols=${currencyList}&format=1`),
 ).pipe(
   map((data: any) => data.rates as Rates),
-  catchError(() => of({
-    USD: 1.218125, EUR: 1, GBP: 0.860835, RON: 4.93,
-  })),
+  catchError(() => of(getMockEuroRate())),
 );
 
 const pollingEuroRateEpic: Epic = (

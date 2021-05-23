@@ -7,6 +7,7 @@ export function getMockEuroRate(rate?: number): Rates {
     [CurrencyType.USD]: rate ?? 1.2188,
     [CurrencyType.GBP]: rate ?? 0.85870,
     [CurrencyType.RON]: rate ?? 4.9,
+    [CurrencyType.CAD]: rate ?? 1.47,
   };
 }
 
@@ -16,5 +17,6 @@ export function getMockWallet(money?: number): Rates {
     [CurrencyType.USD]: money ?? 100,
     [CurrencyType.GBP]: money ?? 100,
     [CurrencyType.RON]: money ?? 100,
+    [CurrencyType.CAD]: money ?? 100,
   };
 }

@@ -11,6 +11,8 @@ export default function getCurrencySymbol(currency: CurrencyType): string {
       return '£';
     case CurrencyType.RON:
       return 'lei';
+    case CurrencyType.CAD:
+      return 'CA$';
     default:
       throw new UnreachableCaseError(currency);
   }

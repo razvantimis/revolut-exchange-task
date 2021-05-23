@@ -1,17 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { CurrencyType } from './exchange/enum';
 import exchangeTransaction from './exchange/exchangeTransaction';
+import { getMockWallet } from './utils/getMockData';
 
 export type WalletsState = {
   [key in CurrencyType]: number;
 };
 
-const initialState: WalletsState = {
-  [CurrencyType.USD]: 100,
-  [CurrencyType.GBP]: 100,
-  [CurrencyType.EUR]: 100,
-  [CurrencyType.RON]: 100,
-};
+const initialState: WalletsState = getMockWallet(100);
 
 const walletsSlice = createSlice({
   name: 'wallets',
