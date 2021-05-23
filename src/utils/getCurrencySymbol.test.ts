@@ -12,7 +12,7 @@ describe('Utils => getCurrencySymbol', () => {
     expect(value).toBe('€');
   });
   it('should return $ if currency = GPB', () => {
-    const value = getCurrencySymbol(CurrencyType.GPB);
+    const value = getCurrencySymbol(CurrencyType.GBP);
     expect(value).toBe('£');
   });
 

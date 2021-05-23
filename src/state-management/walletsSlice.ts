@@ -7,7 +7,7 @@ export type WalletsState = {
 
 const initialState: WalletsState = {
   [CurrencyType.USD]: 10.34,
-  [CurrencyType.GPB]: 34.4,
+  [CurrencyType.GBP]: 34.4,
   [CurrencyType.EUR]: 100.45,
 };
 

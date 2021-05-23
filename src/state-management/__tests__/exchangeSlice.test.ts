@@ -7,13 +7,13 @@ import exchange, {
   setValueTo,
 } from '../exchangeSlice';
 import { CurrencyType, OpenCurrencyListType } from '../enum';
-import getRates from '../getRates';
+import getRates from '../rates/getRates';
 
 describe('Store => exchangeSilce', () => {
   const rateEuro = {
     [CurrencyType.EUR]: 1,
     [CurrencyType.USD]: 1.2188,
-    [CurrencyType.GPB]: 0.85870,
+    [CurrencyType.GBP]: 0.85870,
   };
   const rates = getRates(rateEuro);
 
@@ -88,12 +88,12 @@ describe('Store => exchangeSilce', () => {
   it('should valueFrom be 6.10 * rate(GBPEUR) if user set valueTo', () => {
     const store = setupStore();
     store.dispatch(setCurrencyFrom(CurrencyType.EUR));
-    store.dispatch(setCurrencyTo(CurrencyType.GPB));
+    store.dispatch(setCurrencyTo(CurrencyType.GBP));
 
     const nextValueTo = '6.10';
     store.dispatch(setValueTo(nextValueTo));
 
-    const rate = rates[CurrencyType.GPB][CurrencyType.EUR];
+    const rate = rates[CurrencyType.GBP][CurrencyType.EUR];
     const expectedValueFrom = parseFloat(nextValueTo) * rate;
 
     expect(getExchangeStore(store).valueTo).toBe(nextValueTo);

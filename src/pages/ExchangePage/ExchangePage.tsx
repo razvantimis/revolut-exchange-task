@@ -1,7 +1,5 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { CurrencyType, OpenCurrencyListType } from '@app/state-management/enum';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '@app/state-management/store';
 import {
   setCurrencyFrom,
   setCurrencyTo,
@@ -10,6 +8,9 @@ import {
   setValueTo,
 } from '@app/state-management/exchangeSlice';
 import getExchangeButtonText from '@app/utils/getExchangeButtonText';
+import { useAppDispatch, useAppSelector } from '@app/state-management/hooks';
+import { startPollingEuroRate, stopPollingEuroRate } from '@app/state-management/rates/actions';
+import { REFRESH_RATE } from '@app/config';
 import ExchangeCurrencyInfo from './ExchangeCurrencyInfo';
 import {
   ExchangeTitle,
@@ -23,15 +24,22 @@ import NumberInput from './NumberInput';
 import CurrencyList from './CurrencyList';
 
 const ExchangePage: FC = () => {
-  const currencyFrom = useSelector((state: RootState) => state.exchange.currencyFrom);
-  const currencyTo = useSelector((state: RootState) => state.exchange.currencyTo);
-  const wallets = useSelector((state: RootState) => state.wallets);
-  const valueFrom = useSelector((state: RootState) => state.exchange.valueFrom);
-  const valueTo = useSelector((state: RootState) => state.exchange.valueTo);
-  const openCurrencyList = useSelector((state: RootState) => state.exchange.openCurrencyList);
-  const exchangeType = useSelector((state: RootState) => state.exchange.exchangeType);
+  const currencyFrom = useAppSelector((state) => state.exchange.currencyFrom);
+  const currencyTo = useAppSelector((state) => state.exchange.currencyTo);
+  const wallets = useAppSelector((state) => state.wallets);
+  const valueFrom = useAppSelector((state) => state.exchange.valueFrom);
+  const valueTo = useAppSelector((state) => state.exchange.valueTo);
+  const openCurrencyList = useAppSelector((state) => state.exchange.openCurrencyList);
+  const exchangeType = useAppSelector((state) => state.exchange.exchangeType);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(startPollingEuroRate(REFRESH_RATE));
+    return () => {
+      dispatch(stopPollingEuroRate());
+    };
+  });
 
   const handleSelectCurrency = (selectedCurrency: CurrencyType) => {
     switch (openCurrencyList) {

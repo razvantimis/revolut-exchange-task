@@ -1,7 +1,7 @@
 export enum CurrencyType {
   USD = 'USD',
   EUR = 'EUR',
-  GPB = 'GPB',
+  GBP = 'GBP',
 }
 
 export enum OpenCurrencyListType {

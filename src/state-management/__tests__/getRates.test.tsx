@@ -1,11 +1,12 @@
 import { CurrencyType } from '../enum';
-import getRates, { Rates } from '../getRates';
+import getRates from '../rates/getRates';
+import { Rates } from '../rates/types';
 
 describe('State operation => getRates', () => {
   const euroRate: Rates[CurrencyType.EUR] = {
     [CurrencyType.EUR]: 1,
     [CurrencyType.USD]: 1.2188,
-    [CurrencyType.GPB]: 0.85870,
+    [CurrencyType.GBP]: 0.85870,
   };
   it('should computed rate from all currency by euroRate', () => {
     const rates = getRates(euroRate);
@@ -15,12 +16,12 @@ describe('State operation => getRates', () => {
       [CurrencyType.USD]: {
         [CurrencyType.USD]: 1,
         [CurrencyType.EUR]: 1 / euroRate.USD,
-        [CurrencyType.GPB]: (1 / euroRate.USD) * euroRate.GPB,
+        [CurrencyType.GBP]: (1 / euroRate.USD) * euroRate.GBP,
       },
-      [CurrencyType.GPB]: {
-        [CurrencyType.GPB]: 1,
-        [CurrencyType.EUR]: 1 / euroRate.GPB,
-        [CurrencyType.USD]: (1 / euroRate.GPB) * euroRate.USD,
+      [CurrencyType.GBP]: {
+        [CurrencyType.GBP]: 1,
+        [CurrencyType.EUR]: 1 / euroRate.GBP,
+        [CurrencyType.USD]: (1 / euroRate.GBP) * euroRate.USD,
       },
     });
   });
