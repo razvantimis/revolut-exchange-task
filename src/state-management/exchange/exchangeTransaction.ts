@@ -79,38 +79,38 @@ export function getSellAndBuyTransaction(
 }
 
 export const exchangeTransactionLogic: AsyncThunkPayloadCreator<
-  ExchangeTransactionReturn,
-  void
+ExchangeTransactionReturn,
+void
 > = async (
   _, { getState },
-  ) => {
-    const state = getState() as RootState;
-    const rates = getRates(state);
-    const { wallets } = state;
-    const {
-      currencyFrom,
-      currencyTo,
-      valueFrom,
-      exchangeType,
-    } = state.exchange;
-    const valueFromFloat = parseFloat(valueFrom);
+) => {
+  const state = getState() as RootState;
+  const rates = getRates(state);
+  const { wallets } = state;
+  const {
+    currencyFrom,
+    currencyTo,
+    valueFrom,
+    exchangeType,
+  } = state.exchange;
+  const valueFromFloat = parseFloat(valueFrom);
 
-    const transactions = getSellAndBuyTransaction(
-      exchangeType,
-      currencyFrom,
-      currencyTo,
-      valueFromFloat,
-      rates!,
-    );
+  const transactions = getSellAndBuyTransaction(
+    exchangeType,
+    currencyFrom,
+    currencyTo,
+    valueFromFloat,
+    rates!,
+  );
 
-    const isValid = isExchangeValid(transactions, wallets);
+  const isValid = isExchangeValid(transactions, wallets);
 
-    if (isValid) {
-      return transactions;
-    }
+  if (isValid) {
+    return transactions;
+  }
 
-    throw new Error('Invalid exchange transaction');
-  };
+  throw new Error('Invalid exchange transaction');
+};
 
 const exchangeTransaction = createAsyncThunk(
   'wallets/exchangeTransaction',

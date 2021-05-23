@@ -14,6 +14,7 @@ import { REFRESH_RATE_IN_MILLISECONDS } from '@app/config';
 import exchangeTransaction from '@app/state-management/exchange/exchangeTransaction';
 import isValidExchange from '@app/state-management/exchange/isValidExchange';
 import getCurrencySymbol from '@app/utils/getCurrencySymbol';
+import getRates from '@app/state-management/rates/getRates';
 import ExchangeCurrencyInfo from './ExchangeCurrencyInfo';
 import {
   ExchangeTitle,
@@ -25,7 +26,6 @@ import {
 } from './ExchangePage.style';
 import NumberInput from './NumberInput';
 import CurrencyList from './CurrencyList';
-import getRates from '@app/state-management/rates/getRates';
 
 const ExchangePage: FC = () => {
   const currencyFrom = useAppSelector((state) => state.exchange.currencyFrom);

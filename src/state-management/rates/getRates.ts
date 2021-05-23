@@ -3,10 +3,6 @@ import { CurrencyType } from '../exchange/enum';
 import type { RootState } from '../store';
 import { Rates } from './types';
 
-const getRates = createSelector(
-  (state: RootState) => state.rates.baseRateEuro,
-  (euroRate) => euroRate && getRatesLogic(euroRate)
-)
 export function getRatesLogic(euroRate: Rates[CurrencyType.EUR]): Rates {
   const rates: Rates = {
     [CurrencyType.EUR]: euroRate,
@@ -24,5 +20,10 @@ export function getRatesLogic(euroRate: Rates[CurrencyType.EUR]): Rates {
 
   return rates;
 }
+
+const getRates = createSelector(
+  (state: RootState) => state.rates.baseRateEuro,
+  (euroRate) => euroRate && getRatesLogic(euroRate),
+);
 
 export default getRates;
