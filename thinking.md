@@ -46,3 +46,8 @@ State:
 
 
 
+Exemple Sell/Buy
+
+SELL EUR USD 1 => - 1 euro , +1*rate(EURUSD)
+BUY  EUR USD 1 => +1 euro , - 1*rate(eurusd)
+

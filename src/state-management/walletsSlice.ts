@@ -1,5 +1,6 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { CurrencyType } from './exchange/enum';
+import exchangeTransaction from './exchange/exchangeTransaction';
 
 export type WalletsState = {
   [key in CurrencyType]: number;
@@ -14,13 +15,15 @@ const initialState: WalletsState = {
 const walletsSlice = createSlice({
   name: 'wallets',
   initialState,
-  reducers: {
-    updateAccount(state, action: PayloadAction<{ currency: CurrencyType, value: number }>) {
-      const { currency, value } = action.payload;
-      state[currency] += value;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(exchangeTransaction.fulfilled, (state, action) => {
+      const { sell, buy } = action.payload;
+
+      state[sell.currency] += sell.value;
+      state[buy.currency] += buy.value;
+    });
   },
 });
 
-export const { updateAccount } = walletsSlice.actions;
 export default walletsSlice.reducer;
