@@ -1,4 +1,4 @@
-import { CurrencyType, ExchangeType } from '@app/state-management/enum';
+import { CurrencyType, ExchangeType } from '@app/state-management/exchange/enum';
 import { UnreachableCaseError } from 'ts-essentials';
 import getExchangeButtonText from './getExchangeButtonText';
 

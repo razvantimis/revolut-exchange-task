@@ -1,4 +1,4 @@
-import { CurrencyType } from '@app/state-management/enum';
+import { CurrencyType } from '@app/state-management/exchange/enum';
 import { FC } from 'react';
 import getCurrencySymbol from '@app/utils/getCurrencySymbol';
 import {

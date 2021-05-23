@@ -1,4 +1,4 @@
-import { CurrencyType } from '../enum';
+import { CurrencyType } from '../exchange/enum';
 import { Rates } from './types';
 
 export default function getRates(euroRate: Rates[CurrencyType.EUR]): Rates {

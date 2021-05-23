@@ -15,7 +15,7 @@ import { timer, from, of } from 'rxjs';
 import type { DependenciesEpic, RootState } from '../store';
 import * as actions from './actions';
 import * as actionTypes from './actionTypes';
-import { CurrencyType } from '../enum';
+import { CurrencyType } from '../exchange/enum';
 import type { Rates } from './types';
 
 const currencyList = Object.values(CurrencyType).join(',');

@@ -1,4 +1,4 @@
-import { CurrencyType } from '../enum';
+import { CurrencyType } from '../exchange/enum';
 import type { ActionUnion } from '../utils/types';
 import * as actions from './actions';
 

@@ -18,8 +18,7 @@ const NumberInput: FC<Props> = ({ value, onChange }) => {
   return (
     <Input
       data-testid="input"
-      type="number"
-      min="0"
+      type="text"
       value={value}
       onChange={handleInputChange}
     />

@@ -1,6 +1,6 @@
-import { CurrencyType } from '../enum';
-import getRates from '../rates/getRates';
-import { Rates } from '../rates/types';
+import { CurrencyType } from '../exchange/enum';
+import getRates from './getRates';
+import { Rates } from './types';
 
 describe('State operation => getRates', () => {
   const euroRate: Rates[CurrencyType.EUR] = {

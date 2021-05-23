@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CurrencyType, ExchangeType, OpenCurrencyListType } from './enum';
-import { Rates } from './rates/types';
+import { Rates } from '../rates/types';
 
 type ExchangeState = {
   currencyFrom: CurrencyType;

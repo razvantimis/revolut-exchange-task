@@ -5,8 +5,8 @@ import exchange, {
   setOpenCurrencyList,
   setValueFrom,
   setValueTo,
-} from '../exchangeSlice';
-import { CurrencyType, OpenCurrencyListType } from '../enum';
+} from './exchangeSlice';
+import { CurrencyType, OpenCurrencyListType } from './enum';
 import getRates from '../rates/getRates';
 
 describe('Store => exchangeSilce', () => {

@@ -1,12 +1,12 @@
 import React, { FC, useEffect } from 'react';
-import { CurrencyType, OpenCurrencyListType } from '@app/state-management/enum';
+import { CurrencyType, OpenCurrencyListType } from '@app/state-management/exchange/enum';
 import {
   setCurrencyFrom,
   setCurrencyTo,
   setOpenCurrencyList,
   setValueFrom,
   setValueTo,
-} from '@app/state-management/exchangeSlice';
+} from '@app/state-management/exchange/exchangeSlice';
 import getExchangeButtonText from '@app/utils/getExchangeButtonText';
 import { useAppDispatch, useAppSelector } from '@app/state-management/hooks';
 import { startPollingEuroRate, stopPollingEuroRate } from '@app/state-management/rates/actions';

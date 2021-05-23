@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { CurrencyType } from '@app/state-management/enum';
+import { CurrencyType } from '@app/state-management/exchange/enum';
 import CurrencyListPage, { Props } from './CurrencyList';
 
 describe('<CurrencyListPage />', () => {

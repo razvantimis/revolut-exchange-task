@@ -1,4 +1,4 @@
-import { CurrencyType } from '../enum';
+import { CurrencyType } from '../exchange/enum';
 import type { Rates, RatesActionTypes } from './types';
 import * as actionType from './actionTypes';
 import getRates from './getRates';

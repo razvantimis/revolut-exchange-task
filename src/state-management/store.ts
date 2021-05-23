@@ -7,7 +7,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 import { combineReducers } from 'redux';
 import wallets from './walletsSlice';
-import exchange from './exchangeSlice';
+import exchange from './exchange/exchangeSlice';
 import rates from './rates/reducer';
 import pollingEuroRateEpic from './rates/pollingEuroRateEpic';
 

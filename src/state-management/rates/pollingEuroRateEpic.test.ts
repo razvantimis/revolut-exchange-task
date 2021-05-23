@@ -1,8 +1,8 @@
 import { ActionsObservable } from 'redux-observable';
 import { of } from 'rxjs';
-import { startPollingEuroRate, updateEuroRate } from '../rates/actions';
-import pollingEuroRateEpic from '../rates/pollingEuroRateEpic';
-import { CurrencyType } from '../enum';
+import { startPollingEuroRate, updateEuroRate } from './actions';
+import pollingEuroRateEpic from './pollingEuroRateEpic';
+import { CurrencyType } from '../exchange/enum';
 
 describe('pollingEuroRateEpic()', () => {
   const mockEuroRate = {
