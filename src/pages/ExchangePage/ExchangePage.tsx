@@ -13,19 +13,16 @@ import { startPollingEuroRate, stopPollingEuroRate } from '@app/state-management
 import { REFRESH_RATE_IN_MILLISECONDS } from '@app/config';
 import exchangeTransaction from '@app/state-management/exchange/exchangeTransaction';
 import isValidExchange from '@app/state-management/exchange/isValidExchange';
-import getCurrencySymbol from '@app/utils/getCurrencySymbol';
 import getRateBetweenFromAndTo from '@app/state-management/rates/getRateBetweenFromAndTo';
 import ExchangeCurrencyInfo from './ExchangeCurrencyInfo';
 import {
-  ExchangeTitle,
-  ExchangeSubTitle,
   ExchangeContainer,
-  ExchangeHeader,
   Overlay,
   ExchangeButton,
 } from './ExchangePage.style';
 import NumberInput from './NumberInput';
 import CurrencyList from './CurrencyList';
+import ExchangeHeader from './ExchangeHeader';
 
 const ExchangePage: FC = () => {
   const currencyFrom = useAppSelector((state) => state.exchange.currencyFrom);
@@ -77,22 +74,12 @@ const ExchangePage: FC = () => {
             />
           </Overlay>
         )}
-      <ExchangeHeader>
-        <ExchangeTitle data-testid="header-title">
-          {exchangeType}
-          {' '}
-          {currencyFrom}
-        </ExchangeTitle>
-        {rateBetweenFromAndTo && (
-          <ExchangeSubTitle data-testid="header-subtitle">
-            {getCurrencySymbol(currencyFrom)}
-            1 =
-            {' '}
-            {getCurrencySymbol(currencyTo)}
-            {rateBetweenFromAndTo.toFixed(2)}
-          </ExchangeSubTitle>
-        )}
-      </ExchangeHeader>
+      <ExchangeHeader
+        currencyTo={currencyTo}
+        currencyFrom={currencyFrom}
+        rateBetweenFromAndTo={rateBetweenFromAndTo}
+        exchangeType={exchangeType}
+      />
       <ExchangeCurrencyInfo
         className="exhange-currency-input"
         currency={currencyFrom}
