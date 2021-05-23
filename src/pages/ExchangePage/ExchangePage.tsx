@@ -89,7 +89,7 @@ const ExchangePage: FC = () => {
             1 =
             {' '}
             {getCurrencySymbol(currencyTo)}
-            {rateBetweenFromAndTo}
+            {rateBetweenFromAndTo.toFixed(2)}
           </ExchangeSubTitle>
         )}
       </ExchangeHeader>

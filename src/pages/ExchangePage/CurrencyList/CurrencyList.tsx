@@ -1,13 +1,12 @@
 import { CurrencyType } from '@app/state-management/exchange/enum';
 import { FC } from 'react';
 import { WalletsState } from '@app/state-management/walletsSlice';
-import getCurrencySymbol from '@app/utils/getCurrencySymbol';
 import {
-  CurrencyBalance,
   CurrencyItem,
   CurrencyListContainer,
   CurrencyTitle,
 } from './CurrencyList.style';
+import BalanceText from '../BalanceText';
 
 export type Props = {
   currencyList: CurrencyType[],
@@ -23,12 +22,7 @@ const CurrencyList: FC<Props> = ({ currencyList, wallets, onSelectCurrency }) =>
         onClick={() => onSelectCurrency(currencyItem)}
       >
         <CurrencyTitle>{currencyItem}</CurrencyTitle>
-        <CurrencyBalance>
-          Balance:
-          {' '}
-          {getCurrencySymbol(currencyItem)}
-          {wallets[currencyItem]?.toFixed(2) ?? 0}
-        </CurrencyBalance>
+        <BalanceText currency={currencyItem} balance={wallets[currencyItem] ?? 0} />
       </CurrencyItem>
     ))}
   </CurrencyListContainer>

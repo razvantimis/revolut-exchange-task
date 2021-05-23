@@ -43,11 +43,6 @@ export const ArrowDown = styled.span`
   }
 `;
 
-export const BalanceText = styled.div`
-  color: var(--color-grey);
-  font-size: 1.3rem;
-`;
-
 // #endregion
 
 // #region ----- Right Part -----
