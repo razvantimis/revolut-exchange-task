@@ -13,7 +13,7 @@ type Transaction = {
 
 type ExchangeTransactionReturn = { sell: Transaction, buy: Transaction };
 
-function isExchangeValid(transaction: ExchangeTransactionReturn, wallets: WalletsState) {
+export function isExchangeValid(transaction: ExchangeTransactionReturn, wallets: WalletsState) {
   const { sell } = transaction;
   const sellBalance = wallets[sell.currency];
 
@@ -24,7 +24,7 @@ function isExchangeValid(transaction: ExchangeTransactionReturn, wallets: Wallet
   return false;
 }
 
-function getSellAndBuyTransaction(
+export function getSellAndBuyTransaction(
   exchangeType: ExchangeType,
   currencyFrom: CurrencyType,
   currencyTo: CurrencyType,

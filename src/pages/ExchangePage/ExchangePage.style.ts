@@ -53,8 +53,13 @@ export const ExchangeButton = styled.button`
   font-weight: bold;
   border: 1px solid transparent;
 
-  &:hover {
+  &:hover:not(&[disabled]) {
     border: 1px solid pink;
     color: pink;
+  }
+
+  &[disabled]{
+    background-color: var(--color-grey);
+    color: #666666;
   }
 `;

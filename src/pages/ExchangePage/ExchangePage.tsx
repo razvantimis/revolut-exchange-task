@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '@app/state-management/hooks';
 import { startPollingEuroRate, stopPollingEuroRate } from '@app/state-management/rates/actions';
 import { REFRESH_RATE_IN_MILLISECONDS } from '@app/config';
 import exchangeTransaction from '@app/state-management/exchange/exchangeTransaction';
+import isValidExchange from '@app/state-management/exchange/isValidExchange';
 import ExchangeCurrencyInfo from './ExchangeCurrencyInfo';
 import {
   ExchangeTitle,
@@ -33,6 +34,7 @@ const ExchangePage: FC = () => {
   const valueTo = useAppSelector((state) => state.exchange.valueTo);
   const openCurrencyList = useAppSelector((state) => state.exchange.openCurrencyList);
   const exchangeType = useAppSelector((state) => state.exchange.exchangeType);
+  const isValid = useAppSelector(isValidExchange);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -99,8 +101,9 @@ const ExchangePage: FC = () => {
         />
       </ExchangeCurrencyInfo>
       <ExchangeButton
+        disabled={!isValid}
         className="exchange-btn"
-        onClick={() => dispatch(exchangeTransaction())}
+        onClick={() => isValid && dispatch(exchangeTransaction())}
       >
         {getExchangeButtonText(currencyFrom, currencyTo, exchangeType)}
       </ExchangeButton>
