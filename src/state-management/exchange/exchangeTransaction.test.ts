@@ -9,6 +9,7 @@ type ThunckApiArgs = {
   value: string,
   rate: number,
   type: ExchangeType
+  allMoney?: number;
 };
 
 describe('async action exchangeTransaction', () => {
@@ -18,6 +19,7 @@ describe('async action exchangeTransaction', () => {
     value,
     rate,
     type,
+    allMoney = 50
   }: ThunckApiArgs) => {
     const baseRateEuro = {
       [CurrencyType.EUR]: 1,
@@ -43,9 +45,9 @@ describe('async action exchangeTransaction', () => {
     };
 
     const walletsState = {
-      [CurrencyType.EUR]: 1000,
-      [CurrencyType.USD]: 1000,
-      [CurrencyType.GBP]: 100,
+      [CurrencyType.EUR]: allMoney,
+      [CurrencyType.USD]: allMoney,
+      [CurrencyType.GBP]: allMoney,
     };
 
     return {
@@ -57,7 +59,7 @@ describe('async action exchangeTransaction', () => {
     } as any;
   };
 
-  it('Sell 10 EUR for USD with rate(EURUSD) = 0.5', async () => {
+  it('should sell 10 EUR for USD with rate(EURUSD) = 0.5', async () => {
     const from = CurrencyType.EUR;
     const to = CurrencyType.USD;
     const type = ExchangeType.Sell;
@@ -76,7 +78,7 @@ describe('async action exchangeTransaction', () => {
     });
   });
 
-  it('Buy 10 USD with EUR with rate(EURUSD) = 0.5', async () => {
+  it('should buy 10 USD with EUR with rate(EURUSD) = 0.5', async () => {
     const from = CurrencyType.EUR;
     const to = CurrencyType.USD;
     const type = ExchangeType.Buy;
@@ -95,22 +97,24 @@ describe('async action exchangeTransaction', () => {
     });
   });
 
-  it('Buy 345 GBP with EUR with rate(GBPEUR) = 1.5', async () => {
+  it('should throw an Error when Buy 345 GBP with EUR with rate(GBPEUR) = 1.5', async () => {
     const from = CurrencyType.GBP;
     const to = CurrencyType.EUR;
     const type = ExchangeType.Buy;
     const rate = 1.5;
     const value = '345';
+    const allMoney = 100;
 
     const mockThunkApi = getThunkApiMock({
-      from, to, type, rate, value,
+      from, to, type, rate, value, allMoney
     });
 
-    const result = await exchangeTransactionLogic(undefined, mockThunkApi);
+    try {
+      await exchangeTransactionLogic(undefined, mockThunkApi);
+      expect(true).toBe(false);
+    } catch (err) {
+      expect(err).toEqual(new Error("Invalid exchange transaction"))
+    }
 
-    expect(result).toEqual({
-      sell: { value: 345 * (1 / 1.5), currency: CurrencyType.EUR, type: ExchangeType.Sell },
-      buy: { value: 345, currency: CurrencyType.GBP, type: ExchangeType.Buy },
-    });
   });
 });
