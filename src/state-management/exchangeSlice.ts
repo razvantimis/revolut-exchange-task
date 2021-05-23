@@ -19,7 +19,7 @@ const initialState: ExchangeState = {
   valueFrom: '0',
   valueTo: '0',
   openCurrencyList: null,
-  exchangeType: ExchangeType.Buy,
+  exchangeType: ExchangeType.Sell,
 };
 
 const exchangeSlice = createSlice({

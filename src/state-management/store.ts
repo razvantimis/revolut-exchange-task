@@ -3,6 +3,9 @@ import { combineEpics, createEpicMiddleware } from 'redux-observable';
 import logger from 'redux-logger';
 import { ajax } from 'rxjs/ajax';
 import { EXCHANGE_ACCESS_KEY } from '@app/config';
+import storage from 'redux-persist/lib/storage';
+import { persistStore, persistReducer } from 'redux-persist';
+import { combineReducers } from 'redux';
 import wallets from './walletsSlice';
 import exchange from './exchangeSlice';
 import rates from './rates/reducer';
@@ -20,12 +23,20 @@ const epicMiddleware = createEpicMiddleware({
   dependencies,
 });
 
+const rootReducer = combineReducers({
+  wallets,
+  exchange,
+  rates,
+});
+
+const persistConfig = {
+  key: 'root',
+  storage,
+};
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const store = configureStore({
-  reducer: {
-    wallets,
-    exchange,
-    rates,
-  },
+  reducer: persistedReducer,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware()
     .concat(epicMiddleware, logger),
 });
@@ -38,3 +49,6 @@ export type DependenciesEpic = typeof dependencies;
 export type AppDispatch = typeof store.dispatch;
 
 export default store;
+
+const persistor = persistStore(store);
+export { persistor };
