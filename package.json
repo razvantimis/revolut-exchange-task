@@ -10,13 +10,19 @@
     "lint-fix": "eslint . --ext .ts,.tsx --fix",
     "lint-css": "stylelint '**/*.css' ",
     "lint-css-fix": "stylelint '**/*.css' --fix",
-    "coverage": "jest --coverage",
+    "coverage": "npm test -- --coverage --runInBand --watchAll=false",
     "eject": "react-scripts eject"
   },
   "jest": {
     "moduleNameMapper": {
       "^@app/(.*)$": "<rootDir>/src/$1"
-    }
+    },
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/ts-jest"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$"
+    ]
   },
   "browserslist": {
     "production": [

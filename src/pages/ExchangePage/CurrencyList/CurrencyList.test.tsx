@@ -32,7 +32,7 @@ describe('<CurrencyListPage />', () => {
 
     const firstCurrencyItem = currencyListEl.childNodes[0];
 
-    expect(firstCurrencyItem.textContent).toBe('GBPBalance: £2');
+    expect(firstCurrencyItem.textContent).toBe('GBPBalance: £2.00');
   });
 
   it('should call onSelectCurrency if user are clicking on one currency item', () => {
