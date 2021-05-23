@@ -51,4 +51,10 @@ export const ExchangeButton = styled.button`
   font-size: 1.4rem;
   color: white;
   font-weight: bold;
+  border: 1px solid transparent;
+
+  &:hover {
+    border: 1px solid pink;
+    color: pink;
+  }
 `;

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CurrencyType, ExchangeType, OpenCurrencyListType } from './enum';
 import { Rates } from '../rates/types';
+import exchangeTransaction from './exchangeTransaction';
 
 type ExchangeState = {
   currencyFrom: CurrencyType;
@@ -59,6 +60,12 @@ const exchangeSlice = createSlice({
     setOpenCurrencyList(state, action: PayloadAction<OpenCurrencyListType | null>) {
       state.openCurrencyList = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(exchangeTransaction.fulfilled, (state) => {
+      state.valueFrom = '0';
+      state.valueTo = '0';
+    });
   },
 });
 
