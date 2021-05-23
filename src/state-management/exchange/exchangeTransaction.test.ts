@@ -19,7 +19,7 @@ describe('async action exchangeTransaction', () => {
     value,
     rate,
     type,
-    allMoney = 50
+    allMoney = 50,
   }: ThunckApiArgs) => {
     const baseRateEuro = {
       [CurrencyType.EUR]: 1,
@@ -106,15 +106,11 @@ describe('async action exchangeTransaction', () => {
     const allMoney = 100;
 
     const mockThunkApi = getThunkApiMock({
-      from, to, type, rate, value, allMoney
+      from, to, type, rate, value, allMoney,
     });
 
-    try {
-      await exchangeTransactionLogic(undefined, mockThunkApi);
-      expect(true).toBe(false);
-    } catch (err) {
-      expect(err).toEqual(new Error("Invalid exchange transaction"))
-    }
-
+    await expect(exchangeTransactionLogic(undefined, mockThunkApi)).rejects.toThrow(
+      new Error('Invalid exchange transaction'),
+    );
   });
 });
