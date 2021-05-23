@@ -34,7 +34,7 @@ const ExchangeCurrencyInput: FC<Props> = ({
         Balance:
         {' '}
         {getCurrencySymbol(currency)}
-        {balance}
+        {balance.toFixed(2)}
       </BalanceText>
     </LeftPart>
     <RightPart>
