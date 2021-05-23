@@ -3,8 +3,8 @@ import { createAction } from '../utils/createAction';
 import * as actionTypes from './actionTypes';
 import type { Rates } from './types';
 
-export function startPollingEuroRate(seconds: number) {
-  return createAction({ type: actionTypes.startPollingEuroRate, seconds });
+export function startPollingEuroRate(refreshRate: number) {
+  return createAction({ type: actionTypes.startPollingEuroRate, refreshRate });
 }
 
 export function updateEuroRate(rateEuro: Rates[CurrencyType.EUR]) {

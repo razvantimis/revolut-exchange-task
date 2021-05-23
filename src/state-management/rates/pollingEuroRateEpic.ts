@@ -30,7 +30,7 @@ const pollingEuroRateEpic: Epic = (
   deps: DependenciesEpic,
 ) => action$.pipe(
   ofType(actionTypes.startPollingEuroRate),
-  switchMap(({ seconds }) => timer(0, seconds * 1000).pipe(
+  switchMap(({ refreshRate }) => timer(0, refreshRate).pipe(
     switchMap(() => fetchEuroRate(deps)),
     distinctUntilChanged(),
     map((data) => actions.updateEuroRate(data)),
