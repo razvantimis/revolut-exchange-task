@@ -10,7 +10,7 @@ import {
 import getExchangeButtonText from '@app/utils/getExchangeButtonText';
 import { useAppDispatch, useAppSelector } from '@app/state-management/hooks';
 import { startPollingEuroRate, stopPollingEuroRate } from '@app/state-management/rates/actions';
-import { REFRESH_RATE } from '@app/config';
+import { REFRESH_RATE_IN_MILLISECONDS } from '@app/config';
 import ExchangeCurrencyInfo from './ExchangeCurrencyInfo';
 import {
   ExchangeTitle,
@@ -32,15 +32,14 @@ const ExchangePage: FC = () => {
   const valueTo = useAppSelector((state) => state.exchange.valueTo);
   const openCurrencyList = useAppSelector((state) => state.exchange.openCurrencyList);
   const exchangeType = useAppSelector((state) => state.exchange.exchangeType);
-
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(startPollingEuroRate(REFRESH_RATE));
+    dispatch(startPollingEuroRate(REFRESH_RATE_IN_MILLISECONDS));
     return () => {
       dispatch(stopPollingEuroRate());
     };
-  }, [REFRESH_RATE]);
+  }, [REFRESH_RATE_IN_MILLISECONDS]);
 
   const handleSelectCurrency = (selectedCurrency: CurrencyType) => {
     switch (openCurrencyList) {
