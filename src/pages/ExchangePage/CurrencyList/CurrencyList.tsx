@@ -18,7 +18,7 @@ const CurrencyList: FC<Props> = ({ currencyList, wallets, onSelectCurrency }) =>
   <CurrencyListContainer data-testid="currency-list">
     {currencyList.map((currencyItem) => (
       <CurrencyItem
-        key={currencyItem + wallets[currencyItem]}
+        key={currencyItem}
         onClick={() => onSelectCurrency(currencyItem)}
       >
         <CurrencyTitle>{currencyItem}</CurrencyTitle>
