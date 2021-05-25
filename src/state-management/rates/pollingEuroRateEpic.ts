@@ -21,9 +21,9 @@ import { getMockEuroRate } from '../utils/getMockData';
 
 const currencyList = Object.values(CurrencyType).join(',');
 const fetchEuroRate = ({ getJSON, exchangeAccessKey }: DependenciesEpic) => from(
-  getJSON(`http://datatest.fixer.io/api/latest?access_key=${exchangeAccessKey}&symbols=${currencyList}&format=1`),
+  getJSON<{ rates: Rates}>(`http://datatest.fixer.io/api/latest?access_key=${exchangeAccessKey}&symbols=${currencyList}&format=1`),
 ).pipe(
-  map((data: any) => data.rates as Rates),
+  map((data) => data.rates),
   catchError(() => of(getMockEuroRate())),
 );
 
