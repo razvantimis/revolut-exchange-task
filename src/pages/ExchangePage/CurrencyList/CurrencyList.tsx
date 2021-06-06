@@ -1,5 +1,5 @@
 import { CurrencyType } from '@app/state-management/exchange/enum';
-import { FC } from 'react';
+import { FC, memo } from 'react';
 import { WalletsState } from '@app/state-management/walletsSlice';
 import {
   CurrencyItem,
@@ -28,4 +28,4 @@ const CurrencyList: FC<Props> = ({ currencyList, wallets, onSelectCurrency }) =>
   </CurrencyListContainer>
 );
 
-export default CurrencyList;
+export default memo(CurrencyList);

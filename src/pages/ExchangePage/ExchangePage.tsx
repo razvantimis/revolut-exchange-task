@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { CurrencyType, OpenCurrencyListType } from '@app/state-management/exchange/enum';
 import {
   setCurrencyFrom,
@@ -18,7 +18,7 @@ import getRateBetweenFromAndTo from '@app/state-management/rates/getRateBetweenF
 import ExchangeCurrencyInfo from './ExchangeCurrencyInfo';
 import {
   ExchangeContainer,
-  Overlay,
+  // Overlay,
   ExchangeButton,
   ExchangeContent,
 } from './ExchangePage.style';
@@ -26,6 +26,7 @@ import NumberInput from './NumberInput';
 import CurrencyList from './CurrencyList';
 import ExchangeHeader from './ExchangeHeader';
 import SwitchExchangeType from './SwitchExchangeType';
+import { CURRENCY_LIST } from './constants';
 
 const ExchangePage: FC = () => {
   const currencyFrom = useAppSelector((state) => state.exchange.currencyFrom);
@@ -44,6 +45,15 @@ const ExchangePage: FC = () => {
   );
   const dispatch = useAppDispatch();
 
+  const handleOpenCurrenyListFrom = useCallback(
+    () => dispatch(setOpenCurrencyList(OpenCurrencyListType.From)),
+    [],
+  );
+  const handleOpenCurrenyListTo = useCallback(
+    () => dispatch(setOpenCurrencyList(OpenCurrencyListType.To)),
+    [],
+  );
+
   useEffect(() => {
     dispatch(startPollingEuroRate(REFRESH_RATE_IN_MILLISECONDS));
     return () => {
@@ -51,7 +61,7 @@ const ExchangePage: FC = () => {
     };
   }, [REFRESH_RATE_IN_MILLISECONDS]);
 
-  const handleSelectCurrency = (selectedCurrency: CurrencyType) => {
+  const handleSelectCurrency = useCallback((selectedCurrency: CurrencyType) => {
     switch (openCurrencyList) {
       case OpenCurrencyListType.From:
         dispatch(setCurrencyFrom(selectedCurrency));
@@ -63,19 +73,19 @@ const ExchangePage: FC = () => {
       // ignore
     }
     dispatch(setOpenCurrencyList(null));
-  };
+  }, []);
 
   return (
     <ExchangeContainer>
-      {openCurrencyList !== null
+      {openCurrencyList === null
         && (
-          <Overlay>
-            <CurrencyList
-              currencyList={Object.values(CurrencyType)}
-              wallets={wallets}
-              onSelectCurrency={handleSelectCurrency}
-            />
-          </Overlay>
+          // <Overlay>
+          <CurrencyList
+            currencyList={CURRENCY_LIST}
+            wallets={wallets}
+            onSelectCurrency={handleSelectCurrency}
+          />
+          // </Overlay>
         )}
       <ExchangeHeader
         currencyTo={currencyTo}
@@ -88,7 +98,7 @@ const ExchangePage: FC = () => {
           className="exhange-currency-input"
           currency={currencyFrom}
           balance={wallets[currencyFrom]}
-          onOpenCurrenyList={() => dispatch(setOpenCurrencyList(OpenCurrencyListType.From))}
+          onOpenCurrenyList={handleOpenCurrenyListFrom}
         >
           <NumberInput
             value={valueFrom}
@@ -104,7 +114,7 @@ const ExchangePage: FC = () => {
           className="exhange-currency-input"
           currency={currencyTo}
           balance={wallets[currencyTo]}
-          onOpenCurrenyList={() => dispatch(setOpenCurrencyList(OpenCurrencyListType.To))}
+          onOpenCurrenyList={handleOpenCurrenyListTo}
         >
           <NumberInput
             value={valueTo}

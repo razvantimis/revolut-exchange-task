@@ -1,14 +1,10 @@
 import { CurrencyType } from '@app/state-management/exchange/enum';
 import { FC } from 'react';
-import BalanceText from '../BalanceText';
 import {
-  ArrowDown,
   Container,
-  CurrencyContainer,
-  CurrencyText,
-  LeftPart,
   RightPart,
 } from './ExchangeCurrencyInfo.style';
+import ExchangeCurrencyInputLeftPart from './ExchangeCurrencyInputLeftPart';
 
 export type Props = {
   className?: string;
@@ -24,16 +20,11 @@ const ExchangeCurrencyInput: FC<Props> = ({
   onOpenCurrenyList,
 }) => (
   <Container className={className}>
-    <LeftPart>
-      <CurrencyContainer>
-        <CurrencyText data-testid="currency-text">{currency.toString()}</CurrencyText>
-        <ArrowDown data-testid="arrow" onClick={onOpenCurrenyList} />
-      </CurrencyContainer>
-      <BalanceText
-        currency={currency}
-        balance={balance}
-      />
-    </LeftPart>
+    <ExchangeCurrencyInputLeftPart
+      balance={balance}
+      currency={currency}
+      onOpenCurrenyList={onOpenCurrenyList}
+    />
     <RightPart>
       {children}
     </RightPart>

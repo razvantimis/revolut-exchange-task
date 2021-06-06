@@ -1,6 +1,6 @@
 import { CurrencyType, ExchangeType } from '@app/state-management/exchange/enum';
 import getCurrencySymbol from '@app/utils/getCurrencySymbol';
-import React, { FC } from 'react';
+import { FC, memo } from 'react';
 import { ExchangeHeaderContainer, ExchangeSubTitle, ExchangeTitle } from './ExchangeHeader.style';
 
 type Props = {
@@ -8,7 +8,6 @@ type Props = {
   currencyFrom: CurrencyType;
   currencyTo: CurrencyType;
   rateBetweenFromAndTo: number | null;
-
 };
 
 const ExchangeHeader: FC<Props> = ({
@@ -35,4 +34,4 @@ const ExchangeHeader: FC<Props> = ({
   </ExchangeHeaderContainer>
 );
 
-export default ExchangeHeader;
+export default memo(ExchangeHeader);
