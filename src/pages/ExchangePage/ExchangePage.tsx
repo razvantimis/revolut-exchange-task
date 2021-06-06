@@ -18,7 +18,7 @@ import getRateBetweenFromAndTo from '@app/state-management/rates/getRateBetweenF
 import ExchangeCurrencyInfo from './ExchangeCurrencyInfo';
 import {
   ExchangeContainer,
-  // Overlay,
+  Overlay,
   ExchangeButton,
   ExchangeContent,
 } from './ExchangePage.style';
@@ -77,15 +77,15 @@ const ExchangePage: FC = () => {
 
   return (
     <ExchangeContainer>
-      {openCurrencyList === null
+      {openCurrencyList !== null
         && (
-          // <Overlay>
-          <CurrencyList
-            currencyList={CURRENCY_LIST}
-            wallets={wallets}
-            onSelectCurrency={handleSelectCurrency}
-          />
-          // </Overlay>
+          <Overlay>
+            <CurrencyList
+              currencyList={CURRENCY_LIST}
+              wallets={wallets}
+              onSelectCurrency={handleSelectCurrency}
+            />
+          </Overlay>
         )}
       <ExchangeHeader
         currencyTo={currencyTo}
