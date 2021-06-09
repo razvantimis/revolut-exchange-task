@@ -10,7 +10,6 @@ export type TransactionState = {
 
 const initialState: TransactionState = {
   limit: 10,
-  skipDate: undefined,
   list: [],
 };
 

@@ -19,7 +19,7 @@ const getTransactions: AsyncThunkPayloadCreator<
     if (skipDate) params.push(`to=${skipDate}`);
     if (limit) params.push(`limit=${limit}`);
 
-    const result = ajax.getJSON<Transaction[]>(`https://awesome-bank.xyz/api/user/transactions?${params.join('&')}`, {
+    const result = ajax.getJSON<Transaction[]>(`http://awesome-bank.xyz/api/user/transactions?${params.join('&')}`, {
       'X-Access-Token': getToken(),
     });
 
